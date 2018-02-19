@@ -4,13 +4,17 @@
 
 ## Introduction
 
-When we want to fit models to data, we often do not want to use the raw data as-is.
+When we fit models to data, we often do not want to use the raw data as-is.
 Instead, we usually want to fit models to normalized or log-scaled versions of the
-data. This means that, after the models have been fitted, we need to transform the
+data. If all data elements are in `[0,1]`, this makes it easier to pick
+initial parameter values for models. If there are exponential relationships present
+in data sets, we may want to get rid of them by log-scaling the data.
+This means that, after the models have been fitted, we need to transform the
 model back by applying the inverse of the data transformation to the model.
 
 This package uses our [functionComposeR](http://www.github.com/thomasWeise/functionComposeR) package to construct and apply such bijective transformations. The core of this
-package are the `Transformation` and `TransformedData` S4 classes.
+package are the `Transformation` and `TransformedData` S4 classes and the routines
+to construct instances of them.
 
 `Transformation` allows us to specify a bijection, i.e., `foward` and `backward`
 function for which `backward(forward(x)) = x` holds (at least within the prescribed
@@ -76,6 +80,8 @@ First, you know that all elements are in `[0, 1]`, which will help when looking 
 initial values when fitting models. Second, in this example, the data became beautifully
 linear. If you were fitting a linear model to this, you can then translate this model
 back into the original data space easily using the `backward` and `forward` functions.
+
+By the way, did you notice the beautiful readble bodies of the transformation functions? They do not contain any unresolved variables or nested, opaque functions (apart from the system functions log and exp). They are constructed with the support of our [functionComposeR](http://www.github.com/thomasWeise/functionComposeR) package. 
     
 ## Installation
 
