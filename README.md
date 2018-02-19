@@ -103,6 +103,8 @@ The package is licensed under the  GNU LESSER GENERAL PUBLIC LICENSE Version 3, 
     
 ## Contact
 
+For more information, see our corresponding[blog post](http://iao.hfuu.edu.cn/blogs/programming-blog/133).
+
 If you have any questions or suggestions, please contact
 [Prof. Dr. Thomas Weise](http://iao.hfuu.edu.cn/team/director) of the
 [Institute of Applied Optimization](http://iao.hfuu.edu.cn/) at
