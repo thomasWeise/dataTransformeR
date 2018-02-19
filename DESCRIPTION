@@ -1,0 +1,32 @@
+Package: dataTransformeR
+Type: Package
+Title: R Package for Normalizing and Transforming Numerical Data
+Version: 0.8.0
+Author: Dr. Thomas Weise <tweise@hfuu.edu.cn>
+Maintainer: Dr. Thomas Weise <tweise@hfuu.edu.cn>
+Description: This is package for creating functional transformations and
+   normalizations of numerical data. The goal is to provide some tools for
+   making model fitting on the data easier. We can first transform the data
+   into some easy-to-model format, then fit a model, then apply the inverse
+   transformation to the model. Here we provide the transformations and
+   inverse transformations.
+License: LGPL-3
+Encoding: UTF-8
+URL: http://www.github.com/thomasWeise/dataTransformeR
+BugReports: http://www.github.com/thomasWeise/dataTransformeR/issues
+LazyData: true
+Imports: methods, functionComposeR
+Suggests: testthat, roxygen2
+Additional_repositories: http://www.github.com/thomasWeise/functionComposeR
+Collate: 
+    'Transformation.R'
+    'TransformedData.R'
+    'andThen.R'
+    'intervals.R'
+    'apply.R'
+    'applyAll.R'
+    'makePositive.R'
+    'logScale.R'
+    'normalize.R'
+    'default.R'
+RoxygenNote: 6.0.1.9000
