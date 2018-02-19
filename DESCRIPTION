@@ -17,7 +17,7 @@ BugReports: http://www.github.com/thomasWeise/dataTransformeR/issues
 LazyData: true
 Imports: methods, functionComposeR
 Suggests: testthat, roxygen2
-Additional_repositories: http://www.github.com/thomasWeise/functionComposeR
+Remotes: github::thomasWeise/functionComposeR
 Collate: 
     'Transformation.R'
     'TransformedData.R'
