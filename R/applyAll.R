@@ -1,5 +1,6 @@
 #' @include Transformation.R
 #' @include TransformedData.R
+#' @include identity.R
 
 #' @title Apply All the Provided Transformations
 #' @description Provide all the provided transformation functions.
@@ -19,7 +20,7 @@ Transformation.applyAll <- function(data, transformations, addIdentity=TRUE) {
     # if there are no non-finite data. In that case, we can simply only return
     # the raw data.
     if(addIdentity && base::is.finite(base::sum(base::range(data)))) {
-      return(base::c(TransformedData.new(data=data, transformation=.Transformation.identity)));
+      return(base::c(Transformation.identity(data=data)));
     }
     return(NULL);
   }
@@ -51,8 +52,7 @@ Transformation.applyAll <- function(data, transformations, addIdentity=TRUE) {
     # We shall add the identity transformation.
     if(identityIndex <= 0L) {
       # Add a new identity transformed data
-      result[[base::length(result) + 1]] <-
-        TransformedData.new(data=data, transformation=.Transformation.identity);
+      result[[base::length(result) + 1]] <- Transformation.identity(data=data);
     } else {
       # Replace the contents of the transformation result
       result[[identityIndex]]@data <- data;

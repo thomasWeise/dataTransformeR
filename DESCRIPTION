@@ -21,6 +21,7 @@ Remotes: github::thomasWeise/functionComposeR
 Collate: 
     'Transformation.R'
     'TransformedData.R'
+    'identity.R'
     'andThen.R'
     'intervals.R'
     'apply.R'

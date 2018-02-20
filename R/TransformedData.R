@@ -45,5 +45,6 @@ TransformedData.new <- function(transformation, data) {
   result <- base::force(result);
   result@transformation <- base::force(result@transformation);
   result@data <- base::force(result@data);
+  methods::validObject(result);
   return(result);
 }
