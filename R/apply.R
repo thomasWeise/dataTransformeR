@@ -101,7 +101,7 @@ Transformation.apply <- function(data, transformation, normalize=TRUE, negateNor
       transformed.data <- base::rep(0.5, base::length(data));
       data.range <- base::range(data);
       bwdv <- (0.5 * (data.range[[1]] + data.range[[2]]));
-      transformation <- Transformation.new(
+      transformation <- dataTransformeR::Transformation.new(
         forward=function(x) base::rep(0.5, base::length(x)),
         backward=function(x) base::rep(bwdv, base::length(x)));
     } else {
@@ -111,8 +111,8 @@ Transformation.apply <- function(data, transformation, normalize=TRUE, negateNor
         transformed.min <- transformed.max;
         transformed.max <- temp;
       }
-      normalization <- Transformation.normalizeInterval(transformed.min,
-                                                        transformed.max);
+      normalization <- dataTransformeR::Transformation.normalizeInterval(transformed.min,
+                                                                         transformed.max);
 
       # check if the normalization works in both directions, just to be sure
       normalized.min <- normalization@forward(transformed.min);
@@ -147,7 +147,7 @@ Transformation.apply <- function(data, transformation, normalize=TRUE, negateNor
       if(!(base::all(base::is.finite(transformed.data)))) {
         return(NULL);
       }
-      transformation <- Transformation.andThen1(transformation, normalization);
+      transformation <- dataTransformeR::Transformation.andThen1(transformation, normalization);
     }
   }
 

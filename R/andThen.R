@@ -60,9 +60,9 @@ Transformation.andThen2 <- function(before, after.forward, after.backward) {
   # Can we skip the composition II?
   if (base::identical(before@forward, base::identity) &&
       base::identical(before@backward, base::identity)) {
-    result <- Transformation.new(forward=after.forward, backward=after.backward);
+    result <- dataTransformeR::Transformation.new(forward=after.forward, backward=after.backward);
   } else {
-    result <- Transformation.new(
+    result <- dataTransformeR::Transformation.new(
                 forward=functionComposeR::function.compose(before@forward, after.forward),
                 backward=functionComposeR::function.compose(after.backward, before@backward));
   }
@@ -102,7 +102,7 @@ Transformation.andThen1 <- function(before, after) {
   after <- base::force(after);
   methods::validObject(after);
 
-  result <- Transformation.andThen2(before,
+  result <- dataTransformeR::Transformation.andThen2(before,
                                     after.forward=after@forward,
                                     after.backward=after@backward);
   result <- base::force(result);

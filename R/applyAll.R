@@ -7,11 +7,11 @@
 #' @param data the data
 #' @param transformations the transformations
 #' @param addIdentity should an identity transformation result be created as
-#'   well?
+#'   well? (by default \code{FALSE})
 #' @return a list with the transformation results, or \code{NULL} if no
 #'   transformation succeeded
 #' @export Transformation.applyAll
-Transformation.applyAll <- function(data, transformations, addIdentity=TRUE) {
+Transformation.applyAll <- function(data, transformations, addIdentity=FALSE) {
   # Apply all the transformation functions to the data.
   result <- base::unlist(base::lapply(X=transformations, FUN=function(x) x(data)));
   # If the result is null or empty, we need to handle that
@@ -20,7 +20,7 @@ Transformation.applyAll <- function(data, transformations, addIdentity=TRUE) {
     # if there are no non-finite data. In that case, we can simply only return
     # the raw data.
     if(addIdentity && base::is.finite(base::sum(base::range(data)))) {
-      return(base::c(Transformation.identity(data=data)));
+      return(base::c(dataTransformeR::Transformation.identity(data=data)));
     }
     return(NULL);
   }
@@ -52,7 +52,7 @@ Transformation.applyAll <- function(data, transformations, addIdentity=TRUE) {
     # We shall add the identity transformation.
     if(identityIndex <= 0L) {
       # Add a new identity transformed data
-      result[[base::length(result) + 1]] <- Transformation.identity(data=data);
+      result[[base::length(result) + 1]] <- dataTransformeR::Transformation.identity(data=data);
     } else {
       # Replace the contents of the transformation result
       result[[identityIndex]]@data <- data;
@@ -60,8 +60,9 @@ Transformation.applyAll <- function(data, transformations, addIdentity=TRUE) {
     }
   }
 
-  result <- force(result);
+  result <- base::force(result);
   result <- base::unlist(result);
-  result <- force(result);
+  result <- base::force(result);
+  if(base::is.null(result) || (base::length(result) <= 0)) { return(NULL); }
   return(result);
 }

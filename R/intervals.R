@@ -190,7 +190,7 @@ Transformation.mapIntervals <- function(domainMin, domainMax, imageMin=0, imageM
     }
   }
 
-  result <- Transformation.new(forward=fwd, backward=bwd);
+  result <- dataTransformeR::Transformation.new(forward=fwd, backward=bwd);
   result <- base::force(result);
   result@forward <- base::force(result@forward);
   result@backward <- base::force(result@backward);
@@ -224,5 +224,6 @@ Transformation.mapIntervals <- function(domainMin, domainMax, imageMin=0, imageM
 #' # (x * 2) + 1
 #' # <environment: 0x3bf9960>
 Transformation.normalizeInterval <- function(domainMin, domainMax) {
-  return(Transformation.mapIntervals(domainMin=domainMin, domainMax=domainMax, imageMin = 0, imageMax = 1))
+  return(dataTransformeR::Transformation.mapIntervals(domainMin=domainMin, domainMax=domainMax,
+                                                      imageMin = 0, imageMax = 1))
 }

@@ -9,5 +9,5 @@
 #' @seealso \code{\link{TransformedData.new}}
 #' @export Transformation.identity
 Transformation.identity <- function(data) {
-  return(TransformedData.new(.Transformation.identity, data));
+  return(dataTransformeR::TransformedData.new(.Transformation.identity, data));
 }

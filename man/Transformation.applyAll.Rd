@@ -4,7 +4,7 @@
 \alias{Transformation.applyAll}
 \title{Apply All the Provided Transformations}
 \usage{
-Transformation.applyAll(data, transformations, addIdentity = TRUE)
+Transformation.applyAll(data, transformations, addIdentity = FALSE)
 }
 \arguments{
 \item{data}{the data}
@@ -12,7 +12,7 @@ Transformation.applyAll(data, transformations, addIdentity = TRUE)
 \item{transformations}{the transformations}
 
 \item{addIdentity}{should an identity transformation result be created as
-well?}
+well? (by default \code{FALSE})}
 }
 \value{
 a list with the transformation results, or \code{NULL} if no

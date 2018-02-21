@@ -21,13 +21,17 @@ Remotes: github::thomasWeise/functionComposeR
 Collate: 
     'Transformation.R'
     'TransformedData.R'
-    'identity.R'
+    'TransformedData2D.R'
     'andThen.R'
     'intervals.R'
     'apply.R'
+    'identity.R'
     'applyAll.R'
+    'applyAll2D.R'
     'makePositive.R'
     'logScale.R'
     'normalize.R'
     'default.R'
+    'default2D.R'
+    'identity2D.R'
 RoxygenNote: 6.0.1.9000
