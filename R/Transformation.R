@@ -19,30 +19,34 @@ Transformation <- methods::setClass(
   representation = methods::representation(forward="function",
                                            backward="function"),
   validity = function(object) {
+    # check forward function
     if(base::is.null(object@forward) ||
        (!(base::is.function(object@forward)))) {
       return("Forward function must be defined.");
     }
     if(base::is.primitive(object@forward)) {
-      paramCount <- base::length(base::formals(base::args(object@forward)));
+      forward.args <- base::formals(base::args(object@forward));
     } else {
-      paramCount <- base::length(base::formals(object@forward));
+      forward.args <- base::formals(object@forward);
     }
-    if(paramCount != 1L) {
-      return("Forward function must have at exactly argument");
+    if((base::length(forward.args) != 1L) ||
+       (!(base::identical(base::names(forward.args), base::c("x"))))) {
+      return("Forward function must have at exactly argument named 'x'.");
     }
 
+    # check backward function
     if(base::is.null(object@backward) ||
        (!(base::is.function(object@backward)))) {
       return("Backward function must be defined.");
     }
     if(base::is.primitive(object@backward)) {
-      paramCount <- base::length(base::formals(base::args(object@backward)));
+      backward.args <- base::formals(base::args(object@backward));
     } else {
-      paramCount <- base::length(base::formals(object@backward));
+      backward.args <- base::formals(object@backward);
     }
-    if(paramCount != 1L) {
-      return("Backward function must have exactly one argument");
+    if((base::length(backward.args) != 1L) ||
+       (!(base::identical(base::names(backward.args), base::c("x"))))) {
+      return("Backward function must have at exactly argument named 'x'.");
     }
     return(TRUE);
   }
