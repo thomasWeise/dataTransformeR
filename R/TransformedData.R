@@ -1,5 +1,4 @@
 #' @include Transformation.R
-#' @importFrom methods new is representation validObject
 
 #' @title The Result of a Single Transformation Step
 #' @description A class for presenting the results of the transformation of a
@@ -8,6 +7,7 @@
 #'   data
 #' @slot data the transformed data
 #' @exportClass TransformedData
+#' @importFrom methods setClass is representation validObject
 TransformedData <- methods::setClass(
   Class="TransformedData",
   representation=methods::representation(
@@ -38,6 +38,7 @@ TransformedData <- methods::setClass(
 #' @param data the transformed data
 #' @return a new instance of \code{\link{TransformedData}}
 #' @export TransformedData.new
+#' @importFrom methods new validObject
 TransformedData.new <- function(transformation, data) {
   transformation <- base::force(transformation);
   data <- base::force(data);

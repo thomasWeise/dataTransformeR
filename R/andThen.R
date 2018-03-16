@@ -1,8 +1,5 @@
 #' @include Transformation.R
 
-#' @importFrom functionComposeR function.compose
-#' @importFrom methods validObject is
-
 #' @title Chain a Transformation given by Two Functions and another
 #'   Transformation
 #'
@@ -16,6 +13,8 @@
 #' @return the corresponding new \code{Transformation} object
 #' @seealso \code{\link{Transformation.andThen1}}
 #' @export Transformation.andThen2
+#' @importFrom functionComposeR function.compose
+#' @importFrom methods validObject
 Transformation.andThen2 <- function(before, after.forward, after.backward) {
   # Check the after.forward function
   after.forward <- base::force(after.forward);
@@ -83,6 +82,7 @@ Transformation.andThen2 <- function(before, after.forward, after.backward) {
 #' @return the corresponding \code{Transformation}
 #' @seealso \code{\link{Transformation.andThen2}}
 #' @export Transformation.andThen1
+#' @importFrom methods validObject is
 Transformation.andThen1 <- function(before, after) {
   # Some initial type checks
   if (missing(before) || is.null(before) ||

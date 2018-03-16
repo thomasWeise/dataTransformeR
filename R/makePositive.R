@@ -1,8 +1,5 @@
 #' @include Transformation.R
 
-#' @importFrom methods new
-
-
 #' @title Create a Transformation which Shifts all Values of a Data Array into
 #'   the Positive Zone
 #' @description A transformation is created which could be used to shift all

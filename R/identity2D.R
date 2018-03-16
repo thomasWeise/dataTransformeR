@@ -1,7 +1,6 @@
 #' @include TransformedData2D.R
 #' @include identity.R
 
-
 #' @title Instantiate a new \code{\link{TransformedData2D}} Object
 #' @description Always use this function for instantiating
 #'   \code{\link{TransformedData2D}}

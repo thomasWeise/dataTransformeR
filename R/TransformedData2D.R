@@ -1,7 +1,5 @@
 #' @include TransformedData.R
 
-#' @importFrom methods new is representation validObject
-
 #' @title A Dataset Consisting of \code{x} and \code{y} Data
 #' @description This class is the baseline for fitting models to \code{x}
 #' and \code{y} data. It can encapsulate the data as well as
@@ -9,6 +7,7 @@
 #' @slot x the x \code{\link{TransformedData}} instance
 #' @slot y the y \code{\link{TransformedData}} instance
 #' @exportClass TransformedData2D
+#' @importFrom methods setClass is representation validObject
 TransformedData2D <- methods::setClass(
   Class="TransformedData2D",
   representation=methods::representation(
@@ -39,6 +38,7 @@ TransformedData2D <- methods::setClass(
 #' @param y the y \code{\link{TransformedData}} instance
 #' @return a new instance of \code{\link{TransformedData2D}}
 #' @export TransformedData2D.new
+#' @importFrom methods new validObject
 TransformedData2D.new <- function(x, y) {
   x <- base::force(x);
   y <- base::force(y);

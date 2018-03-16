@@ -1,6 +1,3 @@
-#' @importFrom methods setClass representation validObject
-#' @importFrom functionComposeR function.canonicalize
-
 #'@title A Transformation, i.e. a Two-Way Mapping
 #'
 #'@description This class holds two mutually inverse functions for transforming
@@ -14,6 +11,7 @@
 #'@slot backward the inverse of the transformation function, i.e., the backwards
 #'  transformation
 #' @exportClass Transformation
+#' @importFrom methods setClass representation
 Transformation <- methods::setClass(
   Class = "Transformation",
   representation = methods::representation(forward="function",
@@ -61,6 +59,8 @@ Transformation <- methods::setClass(
 #' @param backward the backward mapping
 #' @return the new \code{\link{Transformation}}
 #' @export Transformation.new
+#' @importFrom methods validObject new
+#' @importFrom functionComposeR function.canonicalize
 Transformation.new <- function(forward, backward) {
   if(!(base::is.primitive(forward))) {
     forward <- functionComposeR::function.canonicalize(forward);

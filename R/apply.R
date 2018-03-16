@@ -3,8 +3,6 @@
 #' @include andThen.R
 #' @include intervals.R
 
-#' @importFrom methods is validObject
-
 #' @title Apply a \code{\link{Transformation}} to a Data Vector and (Normalize the Result if Wanted)
 #'
 #' @description  We transform a vector \code{data} using a given
@@ -26,6 +24,7 @@
 #'   (\code{negateNormalization==TRUE})
 #' @return the corresponding \code{\link{TransformedData}} instance
 #' @export Transformation.apply
+#' @importFrom methods is validObject
 #' @examples
 #' trafo <- Transformation.new(function(x) x*x, sqrt)
 #' data <- c(1, 2, 3, 4)

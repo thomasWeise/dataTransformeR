@@ -2,9 +2,7 @@
 #' @include makePositive.R
 #' @include apply.R
 
-#' @importFrom methods new
-
-.Transformation.log <- methods::new("Transformation", forward=function(x) log(x), backward=exp)
+.Transformation.log <- Transformation.new(forward=function(x) log(x), backward=exp)
 
 #' @title Log-Transform and then Normalize a Data Vector
 #' @description A data vector is logarithmically scaled and then normalized,
