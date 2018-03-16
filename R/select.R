@@ -15,7 +15,7 @@ setClassUnion(".dataTransformeR.vectorOrNULL", c("numeric","NULL"))
 #' @return an instance of the same class as \code{data}, but only containing the
 #'   elements listed in \code{selection}.
 #' @importFrom methods setGeneric
-#' @export TransformedData.select
+#' @exportMethod TransformedData.select
 #' @docType methods
 #' @aliases TransformedData.select
 methods::setGeneric(

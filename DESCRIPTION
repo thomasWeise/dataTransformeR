@@ -1,7 +1,7 @@
 Package: dataTransformeR
 Type: Package
 Title: R Package for Normalizing and Transforming Numerical Data
-Version: 0.8.3
+Version: 0.8.4
 Author: Dr. Thomas Weise <tweise@hfuu.edu.cn>
 Maintainer: Dr. Thomas Weise <tweise@hfuu.edu.cn>
 Description: This is package for creating functional transformations and
