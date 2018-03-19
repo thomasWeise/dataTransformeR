@@ -20,6 +20,28 @@ A data vector is logarithmically scaled and then normalized and
   negated, i.e., all of its components are logarithmically mapped into the
   interval \code{[1, 0]}.
 }
+\examples{
+data <- c(-1, 0, 2, 6, 14, 30)
+Transformation.logNegated(data)
+# An object of class "TransformedData"
+# Slot "transformation":
+#   An object of class "Transformation"
+# Slot "forward":
+#   function (x)
+#     ((log(x + 2) - 3.46573590279973)/-3.46573590279973)
+# <environment: 0x6e9b180>
+#
+#   Slot "backward":
+#   function (x)
+#     exp(x = (x * -3.46573590279973) + 3.46573590279973) - 2
+# <environment: 0x5481518>
+#
+#   Slot "complexity":
+#   [1] 6
+#
+# Slot "data":
+#   [1] 1.0 0.8 0.6 0.4 0.2 0.0
+}
 \seealso{
 \code{\link{Transformation.apply}}
 }

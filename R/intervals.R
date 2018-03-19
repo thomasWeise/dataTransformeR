@@ -64,6 +64,7 @@ Transformation.mapIntervals <- function(domainMin, domainMax, imageMin=0, imageM
 
   fwd <- NULL;
   bwd <- NULL;
+  complexity <- 5L;
 
   if(domainRange == imageRange) {
     offset <- (imageMin - domainMin);
@@ -74,10 +75,12 @@ Transformation.mapIntervals <- function(domainMin, domainMax, imageMin=0, imageM
     if(offset > 0) {
       fwd <- function(x) x + offset;
       bwd <- function(x) x - offset;
+      complexity <- 2L;
     } else {
       offset <- (-offset);
       fwd <- function(x) x - offset;
       bwd <- function(x) x + offset;
+      complexity <- 2L;
     }
   } else {
     if(imageMin == 0) {
@@ -91,15 +94,18 @@ Transformation.mapIntervals <- function(domainMin, domainMax, imageMin=0, imageM
         bwdConv <- force(fwdConv);
         fwd <- function(x) x * fwdConv;
         bwd <- function(x) x * bwdConf;
+        complexity <- 2L;
       } else {
         if(imageMax == 1) {
           if(domainMin > 0) {
             fwd <- function(x) ((x - domainMin) / domainRange);
             bwd <- function(x) (x * domainRange) + domainMin;
+            complexity <- 3L;
           } else {
             domainMin <- (-domainMin);
             fwd <- function(x) ((x + domainMin) / domainRange);
             bwd <- function(x) (x * domainRange) - domainMin;
+            complexity <- 3L;
           }
         }
       }
@@ -109,10 +115,12 @@ Transformation.mapIntervals <- function(domainMin, domainMax, imageMin=0, imageM
         if(imageMin > 0) {
           fwd <- function(x) imageMin + (imageRange * x);
           bwd <- function(x) (x - imageMin) / imageRange;
+          complexity <- 3L;
         } else {
           imageMin <- (-imageMin);
           fwd <- function(x) (imageRange * x) - imageMin;
           bwd <- function(x) (x + imageMin) / imageRange;
+          complexity <- 3L;
         }
       } else {
         if(domainRange == 1) {
@@ -121,20 +129,24 @@ Transformation.mapIntervals <- function(domainMin, domainMax, imageMin=0, imageM
               if(domainMin > 0) {
                 fwd <- function(x) imageMin + (x - domainMin);
                 bwd <- function(x) domainMin + (x - imageMin);
+                complexity <- 3L;
               } else {
                 domainMin <- (-domainMin);
                 fwd <- function(x) imageMin + (x + domainMin);
                 bwd <- function(x) (x - imageMin) - domainMin;
+                complexity <- 3L;
               }
             } else {
               imageMin <- (-imageMin);
               if(domainMin > 0) {
                 fwd <- function(x) (x - domainMin) - imageMin;
                 bwd <- function(x) domainMin + (x + imageMin);
+                complexity <- 3L;
               } else {
                 domainMin <- (-domainMin);
                 fwd <- function(x) (x + domainMin) - imageMin;
                 bwd <- function(x) (x + imageMin) - domainMin;
+                complexity <- 3L;
               }
             }
           } else {
@@ -144,18 +156,22 @@ Transformation.mapIntervals <- function(domainMin, domainMax, imageMin=0, imageM
                 domainMin <- (-domainMin);
                 fwd <- function(x) (imageRange * (x + domainMin)) - imageMin;
                 bwd <- function(x) ((x + imageMin) / imageRange) - domainMin;
+                complexity <- 4L;
               } else {
                 fwd <- function(x) (imageRange * (x - domainMin)) - imageMin;
                 bwd <- function(x) domainMin + ((x + imageMin) / imageRange);
+                complexity <- 4L;
               }
             } else {
               if(domainMin < 0){
                 domainMin <- (-domainMin);
                 fwd <- function(x) imageMin + (imageRange * (x + domainMin));
                 bwd <- function(x) ((x - imageMin) / imageRange) - domainMin;
+                complexity <- 4L;
               } else {
                 fwd <- function(x) imageMin + (imageRange * (x - domainMin));
                 bwd <- function(x) domainMin + ((x - imageMin) / imageRange);
+                complexity <- 4L;
               }
             }
           }
@@ -163,6 +179,7 @@ Transformation.mapIntervals <- function(domainMin, domainMax, imageMin=0, imageM
           if(imageRange == 1) {
             fwd <- function(x) imageMin + ((x - domainMin) / domainRange);
             bwd <- function(x) domainMin + (domainRange * (x - imageMin));
+            complexity <- 4L;
           } else {
             if(imageMin < 0) {
               imageMin <- (-imageMin);
@@ -170,18 +187,22 @@ Transformation.mapIntervals <- function(domainMin, domainMax, imageMin=0, imageM
                 domainMin <- (-domainMin);
                 fwd <- function(x) (imageRange * ((x + domainMin) / domainRange)) - imageMin;
                 bwd <- function(x) (domainRange * ((x + imageMin) / imageRange)) - domainMin;
+                complexity <- 5L;
               } else {
                 fwd <- function(x) (imageRange * ((x - domainMin) / domainRange)) - imageMin;
                 bwd <- function(x) domainMin + (domainRange * ((x + imageMin) / imageRange));
+                complexity <- 5L;
               }
             } else {
               if(domainMin < 0){
                 domainMin <- (-domainMin);
                 fwd <- function(x) imageMin + (imageRange * ((x + domainMin) / domainRange));
                 bwd <- function(x) (domainRange * ((x - imageMin) / imageRange)) - domainMin;
+                complexity <- 5L;
               } else {
                 fwd <- function(x) imageMin + (imageRange * ((x - domainMin) / domainRange));
                 bwd <- function(x) domainMin + (domainRange * ((x - imageMin) / imageRange));
+                complexity <- 5L;
               }
             }
           }
@@ -190,10 +211,12 @@ Transformation.mapIntervals <- function(domainMin, domainMax, imageMin=0, imageM
     }
   }
 
-  result <- dataTransformeR::Transformation.new(forward=fwd, backward=bwd);
+  result <- dataTransformeR::Transformation.new(forward = fwd, backward = bwd,
+                                                complexity = complexity);
   result <- base::force(result);
   result@forward <- base::force(result@forward);
   result@backward <- base::force(result@backward);
+  result@complexity <- base::force(result@complexity);
 
   return(result);
 }

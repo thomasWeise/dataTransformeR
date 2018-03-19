@@ -4,12 +4,14 @@
 \alias{Transformation.new}
 \title{Construct a new Transformation}
 \usage{
-Transformation.new(forward, backward)
+Transformation.new(forward, backward, complexity = 1L)
 }
 \arguments{
 \item{forward}{the forward mapping}
 
 \item{backward}{the backward mapping}
+
+\item{complexity}{the complexity}
 }
 \value{
 the new \code{\link{Transformation}}

@@ -32,9 +32,17 @@ trafo@forward(data)
 # [1] 0.0 1.0 1.1 3.0
 trafo@backward(trafo@forward(data))
 # [1] -1.0  0.0  0.1  2.0
+trafo@forward
+# function (x)
+# x + 1
+# <environment: 0x4bee3c0>
+trafo@complexity
+# [1] 1
 trafo <- Transformation.makePositive(data, zeroAllowed=FALSE)
 trafo@forward(data)
 # [1] 0.0625 1.0625 1.1625 3.0625
 trafo@backward(trafo@forward(data))
 # [1] -1.0  0.0  0.1  2.0
+trafo@complexity
+# [1] 2
 }

@@ -50,6 +50,17 @@ The goal is to provide a toolbox which will allow you to automatically obtain
 normalized and scaled versions of data vectors along with functions to convert
 back and forth between the original and transformed data representation.
 
+A transformation is furthermore accompanied by a positive `complexity`.
+Only `Transformation.identity` has complexity `0L`. All other
+transformations should have a larger complexity. If we simply log-scale some
+data (e.g., via `Transformation.log`) by just applying the
+`log` function, this could have complexity `1L`. If we have a
+transformation involving `n` variables whose values we decide upon,
+then we should pick complexity `n+1L`: If we first move the data by
+3 units and then divide it by 2, i.e., apply something like `(x+3)/`},
+this transformation should have a complexity of `3` - we chose two
+values and applied them in a function.
+
 ## Motivating Example
 
 Assume that you have the data vector
@@ -66,6 +77,9 @@ You can obtain a log-scaled and normalized version of this data by doing
     # function (x)
     # log(x + 2) * 0.288539008177793
     # <environment: 0x3b5cc18>
+    # 
+    # Slot "complexity":
+    # [1] 5
     #
     # Slot "backward":
     # function (x)
@@ -80,6 +94,11 @@ First, you know that all elements are in `[0, 1]`, which will help when looking 
 initial values when fitting models. Second, in this example, the data became beautifully
 linear. If you were fitting a linear model to this, you can then translate this model
 back into the original data space easily using the `backward` and `forward` functions.
+Furthermore, we also get some measure of the complexity that the log scaling has
+involved. We may then decide to apply a model fitting approach to both the raw and
+the transformed data. When deciding which of the two resulting models to choose, we
+may not just consider the model performance, but also that the model on the transformed
+data is actually more complex than the one of the raw data.
 
 By the way, did you notice the beautiful readble bodies of the transformation functions? They do not contain any unresolved variables or nested, opaque functions (apart from the system functions log and exp). They are constructed with the support of our [functionComposeR](http://www.github.com/thomasWeise/functionComposeR) package. 
     

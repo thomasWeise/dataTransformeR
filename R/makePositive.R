@@ -21,11 +21,19 @@
 #' # [1] 0.0 1.0 1.1 3.0
 #' trafo@backward(trafo@forward(data))
 #' # [1] -1.0  0.0  0.1  2.0
+#' trafo@forward
+#' # function (x)
+#' # x + 1
+#' # <environment: 0x4bee3c0>
+#' trafo@complexity
+#' # [1] 1
 #' trafo <- Transformation.makePositive(data, zeroAllowed=FALSE)
 #' trafo@forward(data)
 #' # [1] 0.0625 1.0625 1.1625 3.0625
 #' trafo@backward(trafo@forward(data))
 #' # [1] -1.0  0.0  0.1  2.0
+#' trafo@complexity
+#' # [1] 2
 Transformation.makePositive <- function(data, zeroAllowed=TRUE) {
   if(base::is.null(data) || (!(base::is.numeric(data) &&
                                base::is.vector(data) &&
@@ -66,7 +74,9 @@ Transformation.makePositive <- function(data, zeroAllowed=TRUE) {
   # All values are zero, but zero is not allowed
   if(!(base::is.finite(data.abs.min))) {
     # All values are zero, let's return a shift by 1
-    return(Transformation.new(function(x) x+1, function(x) x-1));
+    return(Transformation.new(forward = function(x) x + 1,
+                              backward = function(x) x - 1,
+                              complexity = 1L));
   }
 
   # Let's flip the sign of the minimum, so it is positive.
@@ -78,7 +88,10 @@ Transformation.makePositive <- function(data, zeroAllowed=TRUE) {
     # Zeros are allowed, so we can shift by -data.min.
     # This will turn the smallest value to 0 and all bigger values to
     # to positive.
-    return(Transformation.new(function(x) x+data.min, function(x) x-data.min));
+    if(data.min == 1) { complexity <- 1L; } else { complexity <- 2L; }
+    return(Transformation.new(forward = function(x) x + data.min,
+                              backward = function(x) x - data.min,
+                              complexity = complexity));
   }
 
   # We have negative values and are not allowed to produce zeros.
@@ -122,15 +135,18 @@ Transformation.makePositive <- function(data, zeroAllowed=TRUE) {
       offset.test <- base::force(offset.test);
       # We can use a single value, because we won't lose any precision.
       return(Transformation.new(forward = function(x) x + offset.test,
-                                backward = function(x) x - offset.test));
+                                backward = function(x) x - offset.test,
+                                complexity = 2L));
     } else {
       # We need to first add data.min and then the offset, or we will lose
       # precision.
       return(Transformation.new(forward = function(x) (x + data.min) + offset,
-                                backward = function(x) (x - offset) - data.min));
+                                backward = function(x) (x - offset) - data.min,
+                                complexity = 3L));
     }
   } #else
   # else: data.min == 0
   return(Transformation.new(forward = function(x) x + offset,
-                            backward = function(x) x - offset));
+                            backward = function(x) x - offset,
+                            complexity = 2L));
 }

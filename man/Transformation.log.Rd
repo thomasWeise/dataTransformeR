@@ -36,6 +36,9 @@ Transformation.log(data)
 # exp(x = x * 3.46573590279973) - 2
 # <environment: 0x3c19460>
 #
+# Slot "complexity":
+#   [1] 5
+#
 # Slot "data":
 # [1] 0.0 0.2 0.4 0.6 0.8 1.0
 }

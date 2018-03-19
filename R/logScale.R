@@ -2,7 +2,7 @@
 #' @include makePositive.R
 #' @include apply.R
 
-.Transformation.log <- Transformation.new(forward=function(x) log(x), backward=exp)
+.Transformation.log <- Transformation.new(forward = function(x) log(x), backward = exp, complexity = 1L)
 
 #' @title Log-Transform and then Normalize a Data Vector
 #' @description A data vector is logarithmically scaled and then normalized,
@@ -31,6 +31,9 @@
 #' # exp(x = x * 3.46573590279973) - 2
 #' # <environment: 0x3c19460>
 #' #
+#' # Slot "complexity":
+#' #   [1] 5
+#' #
 #' # Slot "data":
 #' # [1] 0.0 0.2 0.4 0.6 0.8 1.0
 Transformation.log <- function(data) {
@@ -52,6 +55,26 @@ Transformation.log <- function(data) {
 #'   values
 #' @seealso \code{\link{Transformation.apply}}
 #' @export Transformation.logNegated
+#' @examples data <- c(-1, 0, 2, 6, 14, 30)
+#' Transformation.logNegated(data)
+#' # An object of class "TransformedData"
+#' # Slot "transformation":
+#' #   An object of class "Transformation"
+#' # Slot "forward":
+#' #   function (x)
+#' #     ((log(x + 2) - 3.46573590279973)/-3.46573590279973)
+#' # <environment: 0x6e9b180>
+#' #
+#' #   Slot "backward":
+#' #   function (x)
+#' #     exp(x = (x * -3.46573590279973) + 3.46573590279973) - 2
+#' # <environment: 0x5481518>
+#' #
+#' #   Slot "complexity":
+#' #   [1] 6
+#' #
+#' # Slot "data":
+#' #   [1] 1.0 0.8 0.6 0.4 0.2 0.0
 Transformation.logNegated <- function(data) {
   return(Transformation.apply(data,
                               Transformation.andThen1(

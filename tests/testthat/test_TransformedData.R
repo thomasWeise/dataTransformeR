@@ -34,6 +34,7 @@ test_that("Test TransformedData.new (I)", {
                data=vec)
   expect_identical(data@transformation@forward, sin)
   expect_identical(data@transformation@backward, asin)
+  expect_identical(data@transformation@complexity, 1L);
   expect_identical(data@data, vec)
   expect_s4_class(data, "TransformedData")
   validObject(data)
@@ -42,10 +43,12 @@ test_that("Test TransformedData.new (I)", {
 test_that("Test TransformedData.new (II)", {
   vec <- c(1,2,3)
   data <- TransformedData.new(
-               transformation=Transformation.new(forward=sin, backward=asin),
+               transformation=Transformation.new(forward=sin, backward=asin,
+                                                 complexity = 4L),
                data=vec)
   expect_identical(data@transformation@forward, sin)
   expect_identical(data@transformation@backward, asin)
+  expect_identical(data@transformation@complexity, 4L);
   expect_identical(data@data, vec)
   expect_s4_class(data, "TransformedData")
   validObject(data)

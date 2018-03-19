@@ -24,7 +24,7 @@ TransformedData <- methods::setClass(
     }
     methods::validObject(object@transformation);
     if(base::is.null(object@data) || (!(base::is.vector(object@data))) ||
-       (base::length(object@data) <= 0)) {
+       (base::length(object@data) <= 0L)) {
       return("Data must be a valid, no-empty vector.");
     }
     return(TRUE);

@@ -5,7 +5,8 @@
 \title{Chain a Transformation given by Two Functions and another
   Transformation}
 \usage{
-Transformation.andThen2(before, after.forward, after.backward)
+Transformation.andThen2(before, after.forward, after.backward,
+  after.complexity = 1L)
 }
 \arguments{
 \item{before}{the transformation to be applied first}
@@ -14,6 +15,8 @@ Transformation.andThen2(before, after.forward, after.backward)
 forward function of \code{before}}
 
 \item{after.backward}{the corresponding backward function}
+
+\item{after.complexity}{the complexity of the after functions}
 }
 \value{
 the corresponding new \code{Transformation} object
