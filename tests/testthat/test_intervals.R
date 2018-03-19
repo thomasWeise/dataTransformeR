@@ -1,9 +1,12 @@
 library("dataTransformeR")
 context("Transformation.intervals")
 
+need.fast.tests <- (!(base::is.na(base::Sys.getenv("TRAVIS", unset=NA))));
+
 
 test_that("Test Transformation.mapIntervals (I)", {
-  vec.base <- -5:5
+  vec.base <- -5:5;
+  if(need.fast.tests) { vec.base <- -4:4; }
 
   vec.1 <- rep(vec.base, times=length(vec.base));
   vec.2 <- rep(vec.base, times=rep(length(vec.base), length(vec.base)));
@@ -395,6 +398,7 @@ test_that("Test Transformation.mapIntervals (V)", {
 
 test_that("Test Transformation.normalizeInterval (I)", {
   vec.base <- -5:5
+  if(need.fast.tests) { vec.base <- -4:4; }
 
   vec.1 <- rep(vec.base, times=length(vec.base));
 
