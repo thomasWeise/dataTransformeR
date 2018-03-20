@@ -4,13 +4,13 @@
 \alias{Transformation.applyDefault}
 \title{Apply All Default Transformations}
 \usage{
-Transformation.applyDefault(data, addIdentity = FALSE)
+Transformation.applyDefault(data, addIdentity = TRUE)
 }
 \arguments{
 \item{data}{the data}
 
 \item{addIdentity}{should an identity transformation result be created as
-well? (by default \code{FALSE})}
+well? (by default \code{TRUE})}
 }
 \value{
 a list with the transformation results, or \code{NULL} if no

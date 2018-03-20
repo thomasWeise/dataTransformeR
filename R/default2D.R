@@ -8,12 +8,12 @@
 #' @param x the \code{x} data
 #' @param y the \code{y} data
 #' @param addIdentity should an identity transformation result be created as
-#'   well? (by default \code{FALSE})
+#'   well? (by default \code{TRUE})
 #' @return a list with the transformation results, or \code{NULL} if no
 #'   transformation succeeded
 #' @seealso \code{\link{Transformation.applyAll2D}}
 #' @export Transformation.applyDefault2D
-Transformation.applyDefault2D <- function(x, y, addIdentity=FALSE) {
+Transformation.applyDefault2D <- function(x, y, addIdentity=TRUE) {
   return(dataTransformeR::Transformation.applyAll2D(x=x, y=y,
                                  x.transformations=.Transformation.default,
                                  y.transformations=.Transformation.default,

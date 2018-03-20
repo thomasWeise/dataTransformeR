@@ -4,7 +4,7 @@
 \alias{Transformation.applyDefault2D}
 \title{Apply All Default Transformations to a Two-Dimensional Dataset}
 \usage{
-Transformation.applyDefault2D(x, y, addIdentity = FALSE)
+Transformation.applyDefault2D(x, y, addIdentity = TRUE)
 }
 \arguments{
 \item{x}{the \code{x} data}
@@ -12,7 +12,7 @@ Transformation.applyDefault2D(x, y, addIdentity = FALSE)
 \item{y}{the \code{y} data}
 
 \item{addIdentity}{should an identity transformation result be created as
-well? (by default \code{FALSE})}
+well? (by default \code{TRUE})}
 }
 \value{
 a list with the transformation results, or \code{NULL} if no
