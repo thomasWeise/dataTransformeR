@@ -31,8 +31,8 @@ methods::setGeneric(
 #' @param data the \code{\link{TransformedData}} instance
 #' @param selection the selection, or \code{NULL} to select all
 #' @return the corresponding subset
-#' @export TransformedData.select.1D
-TransformedData.select.1D <- function(data, selection) {
+#' @export TransformedData.select1D
+TransformedData.select1D <- function(data, selection) {
   if(base::is.null(selection)) {
     return(data);
   }
@@ -51,7 +51,7 @@ TransformedData.select.1D <- function(data, selection) {
 methods::setMethod(
   f="TransformedData.select",
   signature=base::c("TransformedData", ".dataTransformeR.vectorOrNULL"),
-  definition=TransformedData.select.1D
+  definition=TransformedData.select1D
 )
 
 #' @title Select a Sub-Set of a \code{\link{TransformedData2D}} Instance
@@ -60,12 +60,12 @@ methods::setMethod(
 #' @param data the \code{\link{TransformedData2D}} instance
 #' @param selection the selection, or \code{NULL} to select all
 #' @return the corresponding subset
-#' @export TransformedData.select.2D
-TransformedData.select.2D <- function(data, selection) {
+#' @export TransformedData.select2D
+TransformedData.select2D <- function(data, selection) {
   if(base::is.null(selection)) { return(data); }
   return(TransformedData2D.new(
-    TransformedData.select.1D(data@x, selection),
-    TransformedData.select.1D(data@y, selection)));
+    TransformedData.select1D(data@x, selection),
+    TransformedData.select1D(data@y, selection)));
 }
 
 #' @title Select a Sub-Set of a \code{\link{TransformedData2D}} Instance
@@ -80,5 +80,5 @@ TransformedData.select.2D <- function(data, selection) {
 methods::setMethod(
   f="TransformedData.select",
   signature=base::c("TransformedData2D", ".dataTransformeR.vectorOrNULL"),
-  definition=TransformedData.select.2D
+  definition=TransformedData.select2D
 )

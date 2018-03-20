@@ -11,43 +11,43 @@ test_that("Test TransformedData selection on 1D data", {
 
   selected <- TransformedData.select(transformed, NULL);
   expect_identical(selected, transformed);
-  selected2 <- TransformedData.select.1D(transformed, NULL);
+  selected2 <- TransformedData.select1D(transformed, NULL);
   expect_identical(selected2, selected);
 
   selected <- TransformedData.select(transformed, c(1));
   expect_identical(selected@transformation, transformed@transformation);
   expect_identical(selected@data, c(-1));
-  selected2 <- TransformedData.select.1D(transformed, c(1));
+  selected2 <- TransformedData.select1D(transformed, c(1));
   expect_identical(selected2, selected);
 
   selected <- TransformedData.select(transformed, c(2));
   expect_identical(selected@transformation, transformed@transformation);
   expect_identical(selected@data, c(-2));
-  selected2 <- TransformedData.select.1D(transformed, c(2));
+  selected2 <- TransformedData.select1D(transformed, c(2));
   expect_identical(selected2, selected);
 
   selected <- TransformedData.select(transformed, c(5));
   expect_identical(selected@transformation, transformed@transformation);
   expect_identical(selected@data, c(-5));
-  selected2 <- TransformedData.select.1D(transformed, c(5));
+  selected2 <- TransformedData.select1D(transformed, c(5));
   expect_identical(selected2, selected);
 
   selected <- TransformedData.select(transformed, c(3, 2, 1));
   expect_identical(selected@transformation, transformed@transformation);
   expect_identical(selected@data, c(-3, -2, -1));
-  selected2 <- TransformedData.select.1D(transformed, c(3, 2, 1));
+  selected2 <- TransformedData.select1D(transformed, c(3, 2, 1));
   expect_identical(selected2, selected);
 
   selected <- TransformedData.select(transformed, c(5, 1, 2));
   expect_identical(selected@transformation, transformed@transformation);
   expect_identical(selected@data, c(-5, -1, -2));
-  selected2 <- TransformedData.select.1D(transformed, c(5, 1, 2));
+  selected2 <- TransformedData.select1D(transformed, c(5, 1, 2));
   expect_identical(selected2, selected);
 
   selected <- TransformedData.select(transformed, c(5, 4, 1, 3, 2));
   expect_identical(selected@transformation, transformed@transformation);
   expect_identical(selected@data, c(-5, -4, -1, -3, -2));
-  selected2 <- TransformedData.select.1D(transformed, c(5, 4, 1, 3, 2));
+  selected2 <- TransformedData.select1D(transformed, c(5, 4, 1, 3, 2));
   expect_identical(selected2, selected);
 })
 
@@ -67,7 +67,7 @@ test_that("Test TransformedData selection on 1D data", {
 
   selected <- TransformedData.select(transformed, NULL);
   expect_identical(selected, transformed);
-  selected2 <- TransformedData.select.2D(transformed, NULL);
+  selected2 <- TransformedData.select2D(transformed, NULL);
   expect_identical(selected2, selected);
 
   selected <- TransformedData.select(transformed, c(1));
@@ -75,7 +75,7 @@ test_that("Test TransformedData selection on 1D data", {
   expect_identical(selected@x@data, c(-1));
   expect_identical(selected@y@transformation, transformed.y@transformation);
   expect_identical(selected@y@data, c(10));
-  selected2 <- TransformedData.select.2D(transformed, c(1));
+  selected2 <- TransformedData.select2D(transformed, c(1));
   expect_identical(selected2, selected);
 
   selected <- TransformedData.select(transformed, c(2));
@@ -83,7 +83,7 @@ test_that("Test TransformedData selection on 1D data", {
   expect_identical(selected@x@data, c(-2));
   expect_identical(selected@y@transformation, transformed.y@transformation);
   expect_identical(selected@y@data, c(20));
-  selected2 <- TransformedData.select.2D(transformed, c(2));
+  selected2 <- TransformedData.select2D(transformed, c(2));
   expect_identical(selected2, selected);
 
   selected <- TransformedData.select(transformed, c(5));
@@ -91,7 +91,7 @@ test_that("Test TransformedData selection on 1D data", {
   expect_identical(selected@x@data, c(-5));
   expect_identical(selected@y@transformation, transformed.y@transformation);
   expect_identical(selected@y@data, c(50));
-  selected2 <- TransformedData.select.2D(transformed, c(5));
+  selected2 <- TransformedData.select2D(transformed, c(5));
   expect_identical(selected2, selected);
 
   selected <- TransformedData.select(transformed, c(3, 4));
@@ -99,7 +99,7 @@ test_that("Test TransformedData selection on 1D data", {
   expect_identical(selected@x@data, c(-3, -4));
   expect_identical(selected@y@transformation, transformed.y@transformation);
   expect_identical(selected@y@data, c(30, 40));
-  selected2 <- TransformedData.select.2D(transformed, c(3, 4));
+  selected2 <- TransformedData.select2D(transformed, c(3, 4));
   expect_identical(selected2, selected);
 
   selected <- TransformedData.select(transformed, c(4, 2));
@@ -107,7 +107,7 @@ test_that("Test TransformedData selection on 1D data", {
   expect_identical(selected@x@data, c(-4, -2));
   expect_identical(selected@y@transformation, transformed.y@transformation);
   expect_identical(selected@y@data, c(40, 20));
-  selected2 <- TransformedData.select.2D(transformed, c(4, 2));
+  selected2 <- TransformedData.select2D(transformed, c(4, 2));
   expect_identical(selected2, selected);
 
   selected <- TransformedData.select(transformed, c(3, 4, 5, 1));
@@ -115,7 +115,7 @@ test_that("Test TransformedData selection on 1D data", {
   expect_identical(selected@x@data, c(-3, -4, -5, -1));
   expect_identical(selected@y@transformation, transformed.y@transformation);
   expect_identical(selected@y@data, c(30, 40, 50, 10));
-  selected2 <- TransformedData.select.2D(transformed, c(3, 4, 5, 1));
+  selected2 <- TransformedData.select2D(transformed, c(3, 4, 5, 1));
   expect_identical(selected2, selected);
 
   selected <- TransformedData.select(transformed, c(3, 2, 4, 5, 1));
@@ -123,6 +123,6 @@ test_that("Test TransformedData selection on 1D data", {
   expect_identical(selected@x@data, c(-3, -2, -4, -5, -1));
   expect_identical(selected@y@transformation, transformed.y@transformation);
   expect_identical(selected@y@data, c(30, 20, 40, 50, 10));
-  selected2 <- TransformedData.select.2D(transformed, c(3, 2, 4, 5, 1));
+  selected2 <- TransformedData.select2D(transformed, c(3, 2, 4, 5, 1));
   expect_identical(selected2, selected);
 })
