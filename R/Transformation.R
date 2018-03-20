@@ -56,7 +56,7 @@ Transformation <- methods::setClass(
     }
     if((base::length(forward.args) != 1L) ||
        (!(base::identical(base::names(forward.args), base::c("x"))))) {
-      return("Forward function must have at exactly argument named 'x'.");
+      return("Forward function must have at exactly one argument named 'x'.");
     }
 
     # check backward function
@@ -71,7 +71,7 @@ Transformation <- methods::setClass(
     }
     if((base::length(backward.args) != 1L) ||
        (!(base::identical(base::names(backward.args), base::c("x"))))) {
-      return("Backward function must have at exactly argument named 'x'.");
+      return("Backward function must have at exactly one argument named 'x'.");
     }
 
     if(base::xor(base::identical(object@forward, base::identity),
