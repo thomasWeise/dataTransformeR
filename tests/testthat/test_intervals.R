@@ -1,7 +1,7 @@
 library("dataTransformeR")
 context("Transformation.intervals")
 
-need.fast.tests <- (!(base::is.na(base::Sys.getenv("TRAVIS", unset=NA))));
+need.fast.tests <- (!(is.na(Sys.getenv("TRAVIS", unset=NA))));
 
 
 test_that("Test Transformation.mapIntervals (I)", {

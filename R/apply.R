@@ -60,35 +60,35 @@
 #' # [1] 0.0000000 0.2000000 0.5333333 1.0000000
 Transformation.apply <- function(data, transformation, normalize=TRUE, negateNormalization=FALSE) {
   # perform all the transformations of the data
-  transformation <- base::force(transformation);
-  if(base::is.null(transformation) ||
+  transformation <- force(transformation);
+  if(is.null(transformation) ||
      (!methods::is(transformation, "Transformation"))) {
     stop("Transformation cannot be null and must be well-defined.")
   }
   methods::validObject(transformation);
 
   # check and setup the source data
-  data <- base::force(data);
-  if(base::is.null(data) || (!(base::is.numeric(data) &&
-                               base::is.vector(data) &&
-                               (base::length(data) > 0L)))) {
+  data <- force(data);
+  if(is.null(data) || (!(is.numeric(data) &&
+                               is.vector(data) &&
+                               (length(data) > 0L)))) {
     stop("data must be a vector of non-zero length.")
   }
 
   # for each transformation function, we first create a transformed copy of the data
-  if(base::identical(transformation@forward, identity)) {
-    transformed.data <- base::force(data);
+  if(identical(transformation@forward, identity)) {
+    transformed.data <- force(data);
   } else {
-    transformed.data <- base::vapply(X=data, FUN=transformation@forward, FUN.VALUE=NaN);
-    transformed.data <- base::force(transformed.data);
+    transformed.data <- vapply(X=data, FUN=transformation@forward, FUN.VALUE=NaN);
+    transformed.data <- force(transformed.data);
   }
 
   # now we can compute the range of the data
-  transformed.range <- base::range(transformed.data);
+  transformed.range <- range(transformed.data);
   transformed.min <- transformed.range[[1]];
   transformed.max <- transformed.range[[2]];
 
-  if(!(base::is.finite(transformed.min) && base::is.finite(transformed.max))) {
+  if(!(is.finite(transformed.min) && is.finite(transformed.max))) {
     # data is not finite, this transformation cannot be used
     return(NULL);
   }
@@ -97,12 +97,12 @@ Transformation.apply <- function(data, transformation, normalize=TRUE, negateNor
     # if the range is empty, then we just return an array with all 0.5 values
     if(transformed.min >= transformed.max) {
       # allocate an array filled with 0.5
-      transformed.data <- base::rep(0.5, base::length(data));
-      data.range <- base::range(data);
+      transformed.data <- rep(0.5, length(data));
+      data.range <- range(data);
       bwdv <- (0.5 * (data.range[[1]] + data.range[[2]]));
       transformation <- dataTransformeR::Transformation.new(
-        forward=function(x) base::rep(0.5, base::length(x)),
-        backward=function(x) base::rep(bwdv, base::length(x)));
+        forward=function(x) rep(0.5, length(x)),
+        backward=function(x) rep(bwdv, length(x)));
     } else {
       # ok, if we get here, then the range of the transformed data was not empty
       if(negateNormalization) {
@@ -115,35 +115,35 @@ Transformation.apply <- function(data, transformation, normalize=TRUE, negateNor
 
       # check if the normalization works in both directions, just to be sure
       normalized.min <- normalization@forward(transformed.min);
-      if(!(base::is.finite(normalized.min) &&
-           base::all.equal(normalized.min, 0) )) {
+      if(!(is.finite(normalized.min) &&
+           all.equal(normalized.min, 0) )) {
         return(NULL);
       }
       normalized.min.back <- normalization@backward(normalized.min);
-      if(!(base::is.finite(normalized.min.back) &&
-           base::all.equal(normalized.min.back, transformed.min))) {
+      if(!(is.finite(normalized.min.back) &&
+           all.equal(normalized.min.back, transformed.min))) {
         return(NULL);
       }
 
       normalized.max <- normalization@forward(transformed.max);
-      if(!(base::is.finite(normalized.max) &&
-           base::all.equal(normalized.max, 1) )) {
+      if(!(is.finite(normalized.max) &&
+           all.equal(normalized.max, 1) )) {
         return(NULL);
       }
       normalized.max.back <- normalization@backward(normalized.max);
-      if(!(base::is.finite(normalized.max.back) &&
-           base::all.equal(normalized.max.back, transformed.max))) {
+      if(!(is.finite(normalized.max.back) &&
+           all.equal(normalized.max.back, transformed.max))) {
         return(NULL);
       }
 
       # we now normalize the data into the range [0, 1]
       tryCatch({
-        transformed.data <- base::vapply(X=transformed.data,
+        transformed.data <- vapply(X=transformed.data,
                                          FUN=function(x) {
-                                           base::min(1, base::max(0, normalization@forward(x)))
+                                           min(1, max(0, normalization@forward(x)))
                                          }, FUN.VALUE=NaN);
       }, error=function(e) { return(NULL); }, warning=function(e) { return(NULL); } );
-      if(!(base::all(base::is.finite(transformed.data)))) {
+      if(!(all(is.finite(transformed.data)))) {
         return(NULL);
       }
       transformation <- dataTransformeR::Transformation.andThen1(transformation, normalization);
@@ -153,11 +153,11 @@ Transformation.apply <- function(data, transformation, normalize=TRUE, negateNor
   # we create the result and enforce that all expressions are REALLY evaluated
   result <- TransformedData.new(transformation=transformation,
                                 data=transformed.data);
-  result <- base::force(result);
-  result@data <- base::force(result@data);
-  result@transformation <- base::force(result@transformation);
-  result@transformation@forward  <- base::force(result@transformation@forward);
-  result@transformation@backward <- base::force(result@transformation@backward);
+  result <- force(result);
+  result@data <- force(result@data);
+  result@transformation <- force(result@transformation);
+  result@transformation@forward  <- force(result@transformation@forward);
+  result@transformation@backward <- force(result@transformation@backward);
 
   return(result); # return the result
 }

@@ -51,16 +51,16 @@ Transformation.mapIntervals <- function(domainMin, domainMax, imageMin=0, imageM
     return(.Transformation.identity);
   }
 
-  domainMin <- base::force(domainMin);
-  domainMax <- base::force(domainMax);
-  imageMin <- base::force(imageMin);
-  imageMax <- base::force(imageMax);
+  domainMin <- force(domainMin);
+  domainMax <- force(domainMax);
+  imageMin <- force(imageMin);
+  imageMax <- force(imageMax);
 
   domainRange <- (domainMax - domainMin);
-  domainRange <- base::force(domainRange);
+  domainRange <- force(domainRange);
 
   imageRange <- (imageMax - imageMin);
-  imageRange <- base::force(imageRange);
+  imageRange <- force(imageRange);
 
   fwd <- NULL;
   bwd <- NULL;
@@ -71,7 +71,7 @@ Transformation.mapIntervals <- function(domainMin, domainMax, imageMin=0, imageM
     if(offset == 0) {
       return(.Transformation.identity);
     }
-    offset <- base::force(offset);
+    offset <- force(offset);
     if(offset > 0) {
       fwd <- function(x) x + offset;
       bwd <- function(x) x - offset;
@@ -110,7 +110,7 @@ Transformation.mapIntervals <- function(domainMin, domainMax, imageMin=0, imageM
         }
       }
     }
-    if(base::is.null(fwd)) {
+    if(is.null(fwd)) {
       if( (domainMin == 0) && (domainMax == 1)) {
         if(imageMin > 0) {
           fwd <- function(x) imageMin + (imageRange * x);
@@ -213,10 +213,10 @@ Transformation.mapIntervals <- function(domainMin, domainMax, imageMin=0, imageM
 
   result <- dataTransformeR::Transformation.new(forward = fwd, backward = bwd,
                                                 complexity = complexity);
-  result <- base::force(result);
-  result@forward <- base::force(result@forward);
-  result@backward <- base::force(result@backward);
-  result@complexity <- base::force(result@complexity);
+  result <- force(result);
+  result@forward <- force(result@forward);
+  result@backward <- force(result@backward);
+  result@complexity <- force(result@complexity);
 
   return(result);
 }

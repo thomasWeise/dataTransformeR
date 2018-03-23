@@ -15,16 +15,16 @@ TransformedData <- methods::setClass(
     data="numeric"
   ),
   validity=function(object) {
-    if(base::is.null(object@transformation) ||
-       (!(base::is.object(object@transformation)))) {
+    if(is.null(object@transformation) ||
+       (!(is.object(object@transformation)))) {
       return("Transformation cannot be null.");
     }
     if(!(methods::is(object@transformation, "Transformation"))) {
       return ("The transformation must be an instance of 'Transformation'.");
     }
     methods::validObject(object@transformation);
-    if(base::is.null(object@data) || (!(base::is.vector(object@data))) ||
-       (base::length(object@data) <= 0L)) {
+    if(is.null(object@data) || (!(is.vector(object@data))) ||
+       (length(object@data) <= 0L)) {
       return("Data must be a valid, no-empty vector.");
     }
     return(TRUE);
@@ -40,12 +40,12 @@ TransformedData <- methods::setClass(
 #' @export TransformedData.new
 #' @importFrom methods new validObject
 TransformedData.new <- function(transformation, data) {
-  transformation <- base::force(transformation);
-  data <- base::force(data);
+  transformation <- force(transformation);
+  data <- force(data);
   result <- methods::new("TransformedData", transformation=transformation, data=data);
-  result <- base::force(result);
-  result@transformation <- base::force(result@transformation);
-  result@data <- base::force(result@data);
+  result <- force(result);
+  result@transformation <- force(result@transformation);
+  result@data <- force(result@data);
   methods::validObject(result);
   return(result);
 }

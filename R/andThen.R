@@ -18,57 +18,57 @@
 #' @importFrom methods validObject
 Transformation.andThen2 <- function(before, after.forward, after.backward, after.complexity = 1L) {
   # Check the after.forward function
-  after.forward <- base::force(after.forward);
-  if(base::is.null(after.forward) ||
-     (!(base::is.function(after.forward)))) {
-    base::stop("after.forward function must be defined.");
+  after.forward <- force(after.forward);
+  if(is.null(after.forward) ||
+     (!(is.function(after.forward)))) {
+    stop("after.forward function must be defined.");
   }
-  if(base::is.primitive(after.forward)) {
-    forward.args <- base::formals(base::args(after.forward));
+  if(is.primitive(after.forward)) {
+    forward.args <- formals(args(after.forward));
   } else {
-    forward.args <- base::formals(after.forward);
+    forward.args <- formals(after.forward);
   }
-  if((base::length(forward.args) != 1L) ||
-     (!(base::identical(base::names(forward.args), base::c("x"))))) {
-    base::stop("after.forward function must have at exactly argument named 'x'.");
+  if((length(forward.args) != 1L) ||
+     (!(identical(names(forward.args), c("x"))))) {
+    stop("after.forward function must have at exactly argument named 'x'.");
   }
 
   # Check the after.backward function
-  after.backward <- base::force(after.backward);
-  if(base::is.null(after.backward) ||
-     (!(base::is.function(after.backward)))) {
-    base::stop("after.backward function must be defined.");
+  after.backward <- force(after.backward);
+  if(is.null(after.backward) ||
+     (!(is.function(after.backward)))) {
+    stop("after.backward function must be defined.");
   }
-  if(base::is.primitive(after.backward)) {
-    forward.args <- base::formals(base::args(after.backward));
+  if(is.primitive(after.backward)) {
+    forward.args <- formals(args(after.backward));
   } else {
-    forward.args <- base::formals(after.backward);
+    forward.args <- formals(after.backward);
   }
-  if((base::length(forward.args) != 1L) ||
-     (!(base::identical(base::names(forward.args), base::c("x"))))) {
-    base::stop("after.backward function must have at exactly argument named 'x'.");
+  if((length(forward.args) != 1L) ||
+     (!(identical(names(forward.args), c("x"))))) {
+    stop("after.backward function must have at exactly argument named 'x'.");
   }
 
   # check complexity
-  if((!(base::is.integer(after.complexity))) || (after.complexity < 0L)) {
-    base::stop("after.complexity must be positive integer or 0L.")
+  if((!(is.integer(after.complexity))) || (after.complexity < 0L)) {
+    stop("after.complexity must be positive integer or 0L.")
   }
 
   # we do a lot of forcing of variable values to try to ensure that
   # this works also in loops.
-  before <- base::force(before);
+  before <- force(before);
   # validate object
   methods::validObject(before);
 
   # Can we skip the composition?
-  if(base::identical(after.forward, base::identity) &&
-     base::identical(after.backward, base::identity) ) {
+  if(identical(after.forward, identity) &&
+     identical(after.backward, identity) ) {
     return(before)
   }
 
   # Can we skip the composition II?
-  if (base::identical(before@forward, base::identity) &&
-      base::identical(before@backward, base::identity)) {
+  if (identical(before@forward, identity) &&
+      identical(before@backward, identity)) {
     result <- dataTransformeR::Transformation.new(forward = after.forward, backward = after.backward,
                                                   complexity = after.complexity);
   } else {
@@ -78,10 +78,10 @@ Transformation.andThen2 <- function(before, after.forward, after.backward, after
                 complexity = (after.complexity + before@complexity));
   }
 
-  result <- base::force(result);
-  result@forward <- base::force(result@forward);
-  result@backward <- base::force(result@backward);
-  result@complexity <- base::force(result@complexity);
+  result <- force(result);
+  result@forward <- force(result@forward);
+  result@backward <- force(result@backward);
+  result@complexity <- force(result@complexity);
   methods::validObject(result);
   return (result)
 }
@@ -98,30 +98,30 @@ Transformation.andThen2 <- function(before, after.forward, after.backward, after
 #' @importFrom methods validObject is
 Transformation.andThen1 <- function(before, after) {
   # Some initial type checks
-  if (base::missing(before) || base::is.null(before) ||
+  if (missing(before) || is.null(before) ||
       (!(methods::is(before, "Transformation")))) {
-    base::stop("'before' transformation is null or missing.");
+    stop("'before' transformation is null or missing.");
   }
-  if (base::missing(after) || base::is.null(after) ||
+  if (missing(after) || is.null(after) ||
       (!(methods::is(after, "Transformation")))) {
-    base::stop("'after' transformation is null or missing.");
+    stop("'after' transformation is null or missing.");
   }
 
   # bind before functions
-  before <- base::force(before);
+  before <- force(before);
   methods::validObject(before);
 
   # bind after functions
-  after <- base::force(after);
+  after <- force(after);
   methods::validObject(after);
 
   result <- dataTransformeR::Transformation.andThen2(before,
                                     after.forward = after@forward,
                                     after.backward = after@backward,
                                     after.complexity = after@complexity);
-  result <- base::force(result);
-  result@forward <- base::force(result@forward);
-  result@backward <- base::force(result@backward);
-  result@complexity <- base::force(result@complexity);
+  result <- force(result);
+  result@forward <- force(result@forward);
+  result@backward <- force(result@backward);
+  result@complexity <- force(result@complexity);
   return(result);
 }

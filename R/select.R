@@ -21,7 +21,7 @@ setClassUnion(".dataTransformeR.vectorOrNULL", c("numeric","NULL"))
 methods::setGeneric(
   name="TransformedData.select",
   def=function(data, selection) {
-    base::standardGeneric("TransformedData.select")
+    standardGeneric("TransformedData.select")
   }
 )
 
@@ -33,7 +33,7 @@ methods::setGeneric(
 #' @return the corresponding subset
 #' @export TransformedData.select1D
 TransformedData.select1D <- function(data, selection) {
-  if(base::is.null(selection)) {
+  if(is.null(selection)) {
     return(data);
   }
   return(TransformedData.new(data@transformation, data@data[selection]));
@@ -50,7 +50,7 @@ TransformedData.select1D <- function(data, selection) {
 #' @aliases TransformedData.select,TransformedData,.dataTransformeR.vectorOrNULL-method
 methods::setMethod(
   f="TransformedData.select",
-  signature=base::c("TransformedData", ".dataTransformeR.vectorOrNULL"),
+  signature=c("TransformedData", ".dataTransformeR.vectorOrNULL"),
   definition=TransformedData.select1D
 )
 
@@ -62,7 +62,7 @@ methods::setMethod(
 #' @return the corresponding subset
 #' @export TransformedData.select2D
 TransformedData.select2D <- function(data, selection) {
-  if(base::is.null(selection)) { return(data); }
+  if(is.null(selection)) { return(data); }
   return(TransformedData2D.new(
     TransformedData.select1D(data@x, selection),
     TransformedData.select1D(data@y, selection)));
@@ -79,6 +79,6 @@ TransformedData.select2D <- function(data, selection) {
 #' @aliases TransformedData.select,TransformedData2D,.dataTransformeR.vectorOrNULL-method
 methods::setMethod(
   f="TransformedData.select",
-  signature=base::c("TransformedData2D", ".dataTransformeR.vectorOrNULL"),
+  signature=c("TransformedData2D", ".dataTransformeR.vectorOrNULL"),
   definition=TransformedData.select2D
 )

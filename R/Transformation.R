@@ -45,49 +45,49 @@ Transformation <- methods::setClass(
   prototype = methods::prototype(complexity = 1L),
   validity = function(object) {
     # check forward function
-    if(base::is.null(object@forward) ||
-       (!(base::is.function(object@forward)))) {
+    if(is.null(object@forward) ||
+       (!(is.function(object@forward)))) {
       return("Forward function must be defined.");
     }
-    if(base::is.primitive(object@forward)) {
-      forward.args <- base::formals(base::args(object@forward));
+    if(is.primitive(object@forward)) {
+      forward.args <- formals(args(object@forward));
     } else {
-      forward.args <- base::formals(object@forward);
+      forward.args <- formals(object@forward);
     }
-    if((base::length(forward.args) != 1L) ||
-       (!(base::identical(base::names(forward.args), base::c("x"))))) {
+    if((length(forward.args) != 1L) ||
+       (!(identical(names(forward.args), c("x"))))) {
       return("Forward function must have at exactly one argument named 'x'.");
     }
 
     # check backward function
-    if(base::is.null(object@backward) ||
-       (!(base::is.function(object@backward)))) {
+    if(is.null(object@backward) ||
+       (!(is.function(object@backward)))) {
       return("Backward function must be defined.");
     }
-    if(base::is.primitive(object@backward)) {
-      backward.args <- base::formals(base::args(object@backward));
+    if(is.primitive(object@backward)) {
+      backward.args <- formals(args(object@backward));
     } else {
-      backward.args <- base::formals(object@backward);
+      backward.args <- formals(object@backward);
     }
-    if((base::length(backward.args) != 1L) ||
-       (!(base::identical(base::names(backward.args), base::c("x"))))) {
+    if((length(backward.args) != 1L) ||
+       (!(identical(names(backward.args), c("x"))))) {
       return("Backward function must have at exactly one argument named 'x'.");
     }
 
-    if(base::xor(base::identical(object@forward, base::identity),
-                 base::identical(object@backward, base::identity))) {
+    if(xor(identical(object@forward, identity),
+                 identical(object@backward, identity))) {
       stop("Either neither or both transformation functions can be the identity transformation.")
     }
 
     # check complexity
-    if((!(base::is.integer(object@complexity))) ||
+    if((!(is.integer(object@complexity))) ||
         (object@complexity < 0L) ||
-        (base::length(object@complexity) != 1L)) {
+        (length(object@complexity) != 1L)) {
       return("Transformation complexity must be a single positive integer or 0L.");
     }
 
     if((object@complexity <= 0L) &&
-       (!(base::identical(object@forward, base::identity)))) {
+       (!(identical(object@forward, identity)))) {
       stop("Only identity transformation can have complexity 0L.")
     }
 
@@ -108,22 +108,22 @@ Transformation <- methods::setClass(
 #' @importFrom methods validObject new
 #' @importFrom functionComposeR function.canonicalize
 Transformation.new <- function(forward, backward, complexity = 1L) {
-  if(!(base::is.primitive(forward))) {
+  if(!(is.primitive(forward))) {
     forward <- functionComposeR::function.canonicalize(forward);
   }
-  if(!(base::is.primitive(backward))) {
+  if(!(is.primitive(backward))) {
     backward <- functionComposeR::function.canonicalize(backward);
   }
   result <- methods::new("Transformation", forward=forward, backward=backward, complexity=complexity);
-  result <- base::force(result);
-  result@forward <- base::force(result@forward);
-  result@backward <- base::force(result@backward);
-  result@complexity <- base::force(result@complexity);
+  result <- force(result);
+  result@forward <- force(result@forward);
+  result@backward <- force(result@backward);
+  result@complexity <- force(result@complexity);
   methods::validObject(result);
   return(result);
 }
 
 # The internal identity transformation constant
-.Transformation.identity <- methods::new("Transformation", forward = base::identity,
-                                                           backward = base::identity,
+.Transformation.identity <- methods::new("Transformation", forward = identity,
+                                                           backward = identity,
                                                            complexity = 0L)

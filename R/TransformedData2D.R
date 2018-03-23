@@ -15,14 +15,14 @@ TransformedData2D <- methods::setClass(
     y="TransformedData"
   ),
   validity=function(object) {
-    if(base::is.null(object@x) ||
-       (!(base::is.object(object@x) &&
+    if(is.null(object@x) ||
+       (!(is.object(object@x) &&
           methods::is(object@x, "TransformedData")))) {
       return ("The x data must be a proper instance of 'TransformedData'.");
     }
     methods::validObject(object@x);
-    if(base::is.null(object@y) ||
-       (!(base::is.object(object@y) &&
+    if(is.null(object@y) ||
+       (!(is.object(object@y) &&
           methods::is(object@y, "TransformedData")))) {
       return ("The y data must be a proper instance of 'TransformedData'.");
     }
@@ -40,12 +40,12 @@ TransformedData2D <- methods::setClass(
 #' @export TransformedData2D.new
 #' @importFrom methods new validObject
 TransformedData2D.new <- function(x, y) {
-  x <- base::force(x);
-  y <- base::force(y);
+  x <- force(x);
+  y <- force(y);
   result <- methods::new("TransformedData2D", x=x, y=y);
-  result <- base::force(result);
-  result@x <- base::force(result@x);
-  result@y <- base::force(result@y);
+  result <- force(result);
+  result@x <- force(result@x);
+  result@y <- force(result@y);
   methods::validObject(result);
   return(result);
 }

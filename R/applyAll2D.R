@@ -20,20 +20,20 @@ Transformation.applyAll2D <- function(x, y, x.transformations, y.transformations
   x.result <- dataTransformeR::Transformation.applyAll(data=x,
                                                        transformations=x.transformations,
                                                        addIdentity=x.addIdentity);
-  if(base::is.null(x.result)) { return(NULL); }
+  if(is.null(x.result)) { return(NULL); }
 
   y.result <- dataTransformeR::Transformation.applyAll(data=y,
                                                        transformations=y.transformations,
                                                        addIdentity=y.addIdentity);
-  if(base::is.null(y.result)) { return(NULL); }
+  if(is.null(y.result)) { return(NULL); }
 
-  result <- base::unlist(base::lapply(X=x.result, FUN=function(data.x) {
-    return(base::unlist(base::lapply(X=y.result, FUN=function(data.y) {
+  result <- unlist(lapply(X=x.result, FUN=function(data.x) {
+    return(unlist(lapply(X=y.result, FUN=function(data.y) {
       return(TransformedData2D.new(data.x, data.y));
     })))
   }));
-  result <- base::force(result);
-  if(base::is.null(result) || (base::length(result) <= 0)) { return(NULL); }
+  result <- force(result);
+  if(is.null(result) || (length(result) <= 0)) { return(NULL); }
 
   return(result);
 }

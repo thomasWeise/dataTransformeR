@@ -35,9 +35,9 @@
 #' trafo@complexity
 #' # [1] 2
 Transformation.makePositive <- function(data, zeroAllowed=TRUE) {
-  if(base::is.null(data) || (!(base::is.numeric(data) &&
-                               base::is.vector(data) &&
-                               (base::length(data) > 0L)))) {
+  if(is.null(data) || (!(is.numeric(data) &&
+                               is.vector(data) &&
+                               (length(data) > 0L)))) {
     stop("data must be a vector of non-zero length.")
   }
 
@@ -46,20 +46,20 @@ Transformation.makePositive <- function(data, zeroAllowed=TRUE) {
 
   # Find the minimum and the minimum absolute value
   for(value in data) {
-    if(!base::is.finite(value)) {
+    if(!is.finite(value)) {
       return(NULL);
     }
     if(value < data.min) {
       data.min <- value;
     }
-    value.abs <- base::abs(value);
+    value.abs <- abs(value);
     if((value.abs > 0) && (value.abs < data.abs.min)) {
       data.abs.min <- value.abs;
     }
   }
 
   # Is the data broken?
-  if(!(base::is.finite(data.min))) {
+  if(!(is.finite(data.min))) {
     # Broken data, all values are infinite values, let's return NULL.
     return(NULL);
   }
@@ -72,7 +72,7 @@ Transformation.makePositive <- function(data, zeroAllowed=TRUE) {
   }
 
   # All values are zero, but zero is not allowed
-  if(!(base::is.finite(data.abs.min))) {
+  if(!(is.finite(data.abs.min))) {
     # All values are zero, let's return a shift by 1
     return(Transformation.new(forward = function(x) x + 1,
                               backward = function(x) x - 1,
@@ -80,8 +80,8 @@ Transformation.makePositive <- function(data, zeroAllowed=TRUE) {
   }
 
   # Let's flip the sign of the minimum, so it is positive.
-  data.min <- base::abs(data.min);
-  data.min <- base::force(data.min);
+  data.min <- abs(data.min);
+  data.min <- force(data.min);
 
   # The data contains 0 or negative elements: min<=0.
   if(zeroAllowed) {
@@ -98,41 +98,41 @@ Transformation.makePositive <- function(data, zeroAllowed=TRUE) {
   # If we would (data - data.min), but then the result contains a 0 as well.
   # So we need to shift it by an offset.
   offset <- data.abs.min;
-  offset <- base::force(offset);
+  offset <- force(offset);
   if(offset != 1) {
     # If the offset is not 1, we try to move it to the next smaller power
     # of two. This is not really necessary, but maybe makes for a more
     # elegant shifting of data and may lead to less loss of precision, as
     # powers of two should just have a single bit set in their binary
     # representation.
-    offset.log.2 <- base::floor(base::log2(offset));
-    if(base::is.finite(offset.log.2) &&
+    offset.log.2 <- floor(log2(offset));
+    if(is.finite(offset.log.2) &&
       (offset.log.2 > -32) && (offset.log.2 < 32)) {
-      offset.test <- 2L ^ base::as.integer(offset.log.2);
-      if(base::is.finite(offset.test) && (offset.test < offset)) {
+      offset.test <- 2L ^ as.integer(offset.log.2);
+      if(is.finite(offset.test) && (offset.test < offset)) {
         offset <- offset.test;
       }
     }
   }
-  offset <- base::force(offset);
+  offset <- force(offset);
 
   if(data.min != 0) {
     # Test if we can combine offset and min without losing precision
     offset.test <- (offset + data.min);
     canCoerce <- FALSE;
     if((offset.test - data.min) > 0) {
-      if(base::identical(offset.test - offset, data.min) &&
-         base::identical(offset.test - data.min, offset)) {
+      if(identical(offset.test - offset, data.min) &&
+         identical(offset.test - data.min, offset)) {
         temp <- offset.test + offset;
-        if(base::identical(temp - offset.test, offset) &&
-           base::identical(temp - offset, offset.test)) {
+        if(identical(temp - offset.test, offset) &&
+           identical(temp - offset, offset.test)) {
           canCoerce = TRUE;
         }
       }
     }
 
     if(canCoerce) {
-      offset.test <- base::force(offset.test);
+      offset.test <- force(offset.test);
       # We can use a single value, because we won't lose any precision.
       return(Transformation.new(forward = function(x) x + offset.test,
                                 backward = function(x) x - offset.test,
