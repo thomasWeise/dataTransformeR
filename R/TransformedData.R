@@ -8,9 +8,9 @@
 #' @slot data the transformed data
 #' @exportClass TransformedData
 #' @importFrom methods setClass is representation validObject
-TransformedData <- methods::setClass(
+TransformedData <- setClass(
   Class="TransformedData",
-  representation=methods::representation(
+  representation=representation(
     transformation="Transformation",
     data="numeric"
   ),
@@ -19,10 +19,10 @@ TransformedData <- methods::setClass(
        (!(is.object(object@transformation)))) {
       return("Transformation cannot be null.");
     }
-    if(!(methods::is(object@transformation, "Transformation"))) {
+    if(!(is(object@transformation, "Transformation"))) {
       return ("The transformation must be an instance of 'Transformation'.");
     }
-    methods::validObject(object@transformation);
+    validObject(object@transformation);
     if(is.null(object@data) || (!(is.vector(object@data))) ||
        (length(object@data) <= 0L)) {
       return("Data must be a valid, no-empty vector.");
@@ -42,10 +42,10 @@ TransformedData <- methods::setClass(
 TransformedData.new <- function(transformation, data) {
   transformation <- force(transformation);
   data <- force(data);
-  result <- methods::new("TransformedData", transformation=transformation, data=data);
+  result <- new("TransformedData", transformation=transformation, data=data);
   result <- force(result);
   result@transformation <- force(result@transformation);
   result@data <- force(result@data);
-  methods::validObject(result);
+  validObject(result);
   return(result);
 }

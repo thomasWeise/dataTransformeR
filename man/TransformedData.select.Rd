@@ -6,35 +6,28 @@
 \alias{TransformedData.select,TransformedData,.dataTransformeR.vectorOrNULL-method}
 \alias{TransformedData.select,TransformedData2D,.dataTransformeR.vectorOrNULL-method}
 \title{Creating a Sub-Selection of a Transformed Dataset Instance.}
+\usage{
+TransformedData.select(data, selection)
+
+
+  \S4method{TransformedData.select}{TransformedData,.dataTransformeR.vectorOrNULL}(data,
+  selection)
+
+
+  \S4method{TransformedData.select}{TransformedData2D,.dataTransformeR.vectorOrNULL}(data,
+  selection)
+}
 \arguments{
 \item{data}{the data to sub-select}
 
 \item{selection}{the selection (or \code{NULL} to select verything)}
-
-\item{data}{the \code{\link{TransformedData}} instance}
-
-\item{selection}{the selection, or \code{NULL} to select all}
-
-\item{data}{the \code{\link{TransformedData2D}} instance}
-
-\item{selection}{the selection, or \code{NULL} to select all}
 }
 \value{
 an instance of the same class as \code{data}, but only containing the
   elements listed in \code{selection}.
-
-the corresponding subset
-
-the corresponding subset
 }
 \description{
 Implementations of this method must accept an instance of a
   transformed data-like object and an integer value and then return a
   sub-selection of that data.
-
-This method selects a subset of the provided instance of
-  \code{\link{TransformedData}}
-
-This method selects a subset of the provided instance of
-  \code{\link{TransformedData2D}}
 }

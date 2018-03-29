@@ -58,7 +58,7 @@ Transformation.andThen2 <- function(before, after.forward, after.backward, after
   # this works also in loops.
   before <- force(before);
   # validate object
-  methods::validObject(before);
+  validObject(before);
 
   # Can we skip the composition?
   if(identical(after.forward, identity) &&
@@ -69,12 +69,12 @@ Transformation.andThen2 <- function(before, after.forward, after.backward, after
   # Can we skip the composition II?
   if (identical(before@forward, identity) &&
       identical(before@backward, identity)) {
-    result <- dataTransformeR::Transformation.new(forward = after.forward, backward = after.backward,
+    result <- Transformation.new(forward = after.forward, backward = after.backward,
                                                   complexity = after.complexity);
   } else {
-    result <- dataTransformeR::Transformation.new(
-                forward = functionComposeR::function.compose(before@forward, after.forward),
-                backward = functionComposeR::function.compose(after.backward, before@backward),
+    result <- Transformation.new(
+                forward = function.compose(before@forward, after.forward),
+                backward = function.compose(after.backward, before@backward),
                 complexity = (after.complexity + before@complexity));
   }
 
@@ -82,7 +82,7 @@ Transformation.andThen2 <- function(before, after.forward, after.backward, after
   result@forward <- force(result@forward);
   result@backward <- force(result@backward);
   result@complexity <- force(result@complexity);
-  methods::validObject(result);
+  validObject(result);
   return (result)
 }
 
@@ -99,23 +99,23 @@ Transformation.andThen2 <- function(before, after.forward, after.backward, after
 Transformation.andThen1 <- function(before, after) {
   # Some initial type checks
   if (missing(before) || is.null(before) ||
-      (!(methods::is(before, "Transformation")))) {
+      (!(is(before, "Transformation")))) {
     stop("'before' transformation is null or missing.");
   }
   if (missing(after) || is.null(after) ||
-      (!(methods::is(after, "Transformation")))) {
+      (!(is(after, "Transformation")))) {
     stop("'after' transformation is null or missing.");
   }
 
   # bind before functions
   before <- force(before);
-  methods::validObject(before);
+  validObject(before);
 
   # bind after functions
   after <- force(after);
-  methods::validObject(after);
+  validObject(after);
 
-  result <- dataTransformeR::Transformation.andThen2(before,
+  result <- Transformation.andThen2(before,
                                     after.forward = after@forward,
                                     after.backward = after@backward,
                                     after.complexity = after@complexity);

@@ -20,7 +20,7 @@ Transformation.applyAll <- function(data, transformations, addIdentity=FALSE) {
     # if there are no non-finite data. In that case, we can simply only return
     # the raw data.
     if(addIdentity && is.finite(sum(range(data)))) {
-      return(c(dataTransformeR::Transformation.identity(data=data)));
+      return(c(Transformation.identity(data=data)));
     }
     return(NULL);
   }
@@ -52,7 +52,7 @@ Transformation.applyAll <- function(data, transformations, addIdentity=FALSE) {
     # We shall add the identity transformation.
     if(identityIndex <= 0L) {
       # Add a new identity transformed data
-      result[[length(result) + 1]] <- dataTransformeR::Transformation.identity(data=data);
+      result[[length(result) + 1]] <- Transformation.identity(data=data);
     } else {
       # Replace the contents of the transformation result
       result[[identityIndex]]@data <- data;

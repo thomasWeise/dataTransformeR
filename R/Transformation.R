@@ -37,12 +37,12 @@
 #' #
 #' # Slot "complexity":
 #' # [1] 1
-Transformation <- methods::setClass(
+Transformation <- setClass(
   Class = "Transformation",
-  representation = methods::representation(forward="function",
+  representation = representation(forward="function",
                                            backward="function",
                                            complexity="integer"),
-  prototype = methods::prototype(complexity = 1L),
+  prototype = prototype(complexity = 1L),
   validity = function(object) {
     # check forward function
     if(is.null(object@forward) ||
@@ -109,21 +109,21 @@ Transformation <- methods::setClass(
 #' @importFrom functionComposeR function.canonicalize
 Transformation.new <- function(forward, backward, complexity = 1L) {
   if(!(is.primitive(forward))) {
-    forward <- functionComposeR::function.canonicalize(forward);
+    forward <- function.canonicalize(forward);
   }
   if(!(is.primitive(backward))) {
-    backward <- functionComposeR::function.canonicalize(backward);
+    backward <- function.canonicalize(backward);
   }
-  result <- methods::new("Transformation", forward=forward, backward=backward, complexity=complexity);
+  result <- new("Transformation", forward=forward, backward=backward, complexity=complexity);
   result <- force(result);
   result@forward <- force(result@forward);
   result@backward <- force(result@backward);
   result@complexity <- force(result@complexity);
-  methods::validObject(result);
+  validObject(result);
   return(result);
 }
 
 # The internal identity transformation constant
-.Transformation.identity <- methods::new("Transformation", forward = identity,
+.Transformation.identity <- new("Transformation", forward = identity,
                                                            backward = identity,
                                                            complexity = 0L)

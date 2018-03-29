@@ -19,7 +19,7 @@
 #' @seealso \code{\link{Transformation.applyAll}}
 #' @export Transformation.applyDefault
 Transformation.applyDefault <- function(data, addIdentity=TRUE) {
-  return(dataTransformeR::Transformation.applyAll(data=data,
+  return(Transformation.applyAll(data=data,
                                  transformations=.Transformation.default,
                                  addIdentity=addIdentity));
 }

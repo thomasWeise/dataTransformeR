@@ -18,7 +18,8 @@ setClassUnion(".dataTransformeR.vectorOrNULL", c("numeric","NULL"))
 #' @exportMethod TransformedData.select
 #' @docType methods
 #' @aliases TransformedData.select
-methods::setGeneric(
+#' @rdname TransformedData.select
+setGeneric(
   name="TransformedData.select",
   def=function(data, selection) {
     standardGeneric("TransformedData.select")
@@ -39,16 +40,10 @@ TransformedData.select1D <- function(data, selection) {
   return(TransformedData.new(data@transformation, data@data[selection]));
 }
 
-#' @title Select a Sub-Set of a \code{\link{TransformedData}} Instance
-#' @description This method selects a subset of the provided instance of
-#'   \code{\link{TransformedData}}
-#' @param data the \code{\link{TransformedData}} instance
-#' @param selection the selection, or \code{NULL} to select all
-#' @return the corresponding subset
-#' @importFrom methods setMethod
 #' @name TransformedData.select
 #' @aliases TransformedData.select,TransformedData,.dataTransformeR.vectorOrNULL-method
-methods::setMethod(
+#' @rdname TransformedData.select
+setMethod(
   f="TransformedData.select",
   signature=c("TransformedData", ".dataTransformeR.vectorOrNULL"),
   definition=TransformedData.select1D
@@ -68,16 +63,9 @@ TransformedData.select2D <- function(data, selection) {
     TransformedData.select1D(data@y, selection)));
 }
 
-#' @title Select a Sub-Set of a \code{\link{TransformedData2D}} Instance
-#' @description This method selects a subset of the provided instance of
-#'   \code{\link{TransformedData2D}}
-#' @param data the \code{\link{TransformedData2D}} instance
-#' @param selection the selection, or \code{NULL} to select all
-#' @return the corresponding subset
-#' @importFrom methods setMethod
-#' @name TransformedData.select
 #' @aliases TransformedData.select,TransformedData2D,.dataTransformeR.vectorOrNULL-method
-methods::setMethod(
+#' @rdname TransformedData.select
+setMethod(
   f="TransformedData.select",
   signature=c("TransformedData2D", ".dataTransformeR.vectorOrNULL"),
   definition=TransformedData.select2D

@@ -62,16 +62,16 @@ Transformation.apply <- function(data, transformation, normalize=TRUE, negateNor
   # perform all the transformations of the data
   transformation <- force(transformation);
   if(is.null(transformation) ||
-     (!methods::is(transformation, "Transformation"))) {
+     (!is(transformation, "Transformation"))) {
     stop("Transformation cannot be null and must be well-defined.")
   }
-  methods::validObject(transformation);
+  validObject(transformation);
 
   # check and setup the source data
   data <- force(data);
   if(is.null(data) || (!(is.numeric(data) &&
-                               is.vector(data) &&
-                               (length(data) > 0L)))) {
+                         is.vector(data) &&
+                         (length(data) > 0L)))) {
     stop("data must be a vector of non-zero length.")
   }
 
@@ -100,7 +100,7 @@ Transformation.apply <- function(data, transformation, normalize=TRUE, negateNor
       transformed.data <- rep(0.5, length(data));
       data.range <- range(data);
       bwdv <- (0.5 * (data.range[[1]] + data.range[[2]]));
-      transformation <- dataTransformeR::Transformation.new(
+      transformation <- Transformation.new(
         forward=function(x) rep(0.5, length(x)),
         backward=function(x) rep(bwdv, length(x)));
     } else {
@@ -110,7 +110,7 @@ Transformation.apply <- function(data, transformation, normalize=TRUE, negateNor
         transformed.min <- transformed.max;
         transformed.max <- temp;
       }
-      normalization <- dataTransformeR::Transformation.normalizeInterval(transformed.min,
+      normalization <- Transformation.normalizeInterval(transformed.min,
                                                                          transformed.max);
 
       # check if the normalization works in both directions, just to be sure
@@ -146,7 +146,7 @@ Transformation.apply <- function(data, transformation, normalize=TRUE, negateNor
       if(!(all(is.finite(transformed.data)))) {
         return(NULL);
       }
-      transformation <- dataTransformeR::Transformation.andThen1(transformation, normalization);
+      transformation <- Transformation.andThen1(transformation, normalization);
     }
   }
 

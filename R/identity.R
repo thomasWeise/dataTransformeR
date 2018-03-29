@@ -31,5 +31,5 @@
 #' # Slot "data":
 #' #   [1] 1 2 3
 Transformation.identity <- function(data) {
-  return(dataTransformeR::TransformedData.new(.Transformation.identity, data));
+  return(TransformedData.new(.Transformation.identity, data));
 }

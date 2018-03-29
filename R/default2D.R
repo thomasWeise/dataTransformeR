@@ -14,9 +14,9 @@
 #' @seealso \code{\link{Transformation.applyAll2D}}
 #' @export Transformation.applyDefault2D
 Transformation.applyDefault2D <- function(x, y, addIdentity=TRUE) {
-  return(dataTransformeR::Transformation.applyAll2D(x=x, y=y,
-                                 x.transformations=.Transformation.default,
-                                 y.transformations=.Transformation.default,
-                                 x.addIdentity=addIdentity,
-                                 y.addIdentity=addIdentity));
+  return(Transformation.applyAll2D(x=x, y=y,
+                                  x.transformations=.Transformation.default,
+                                  y.transformations=.Transformation.default,
+                                  x.addIdentity=addIdentity,
+                                  y.addIdentity=addIdentity));
 }

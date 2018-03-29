@@ -9,6 +9,6 @@
 #' @return a new instance of \code{\link{TransformedData2D}}
 #' @export Transformation.identity2D
 Transformation.identity2D <- function(x, y) {
-  TransformedData2D.new(dataTransformeR::Transformation.identity(x),
-                        dataTransformeR::Transformation.identity(y));
+  TransformedData2D.new(Transformation.identity(x),
+                        Transformation.identity(y));
 }

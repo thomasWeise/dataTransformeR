@@ -17,12 +17,12 @@
 #' @export Transformation.applyAll2D
 Transformation.applyAll2D <- function(x, y, x.transformations, y.transformations=x.transformations,
                                       x.addIdentity=FALSE, y.addIdentity=x.addIdentity) {
-  x.result <- dataTransformeR::Transformation.applyAll(data=x,
-                                                       transformations=x.transformations,
-                                                       addIdentity=x.addIdentity);
+  x.result <- Transformation.applyAll(data=x,
+                                      transformations=x.transformations,
+                                      addIdentity=x.addIdentity);
   if(is.null(x.result)) { return(NULL); }
 
-  y.result <- dataTransformeR::Transformation.applyAll(data=y,
+  y.result <- Transformation.applyAll(data=y,
                                                        transformations=y.transformations,
                                                        addIdentity=y.addIdentity);
   if(is.null(y.result)) { return(NULL); }
