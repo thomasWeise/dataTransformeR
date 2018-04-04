@@ -4,9 +4,9 @@
 
 # The default transformations
 .Transformation.default <- c(Transformation.normalize,
-                             Transformation.normalizeNegated,
-                             Transformation.log,
-                             Transformation.logNegated)
+#                            Transformation.normalizeNegated,
+#                            Transformation.logNegated,
+                             Transformation.log)
 
 
 #' @title Apply All Default Transformations

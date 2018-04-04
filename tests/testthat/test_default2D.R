@@ -69,13 +69,13 @@ context("Transformation.applyDefault2D")
     }
   }
   expect_gt(x.has_norm, 0);
-  expect_gt(x.has_norm_neg, 0);
+  expect_gte(x.has_norm_neg, 0);
   expect_gt(x.has_log, 0);
-  expect_gt(x.has_log_neg, 0);
+  expect_gte(x.has_log_neg, 0);
   expect_gt(y.has_norm, 0);
-  expect_gt(y.has_norm_neg, 0);
+  expect_gte(y.has_norm_neg, 0);
   expect_gt(y.has_log, 0);
-  expect_gt(y.has_log_neg, 0);
+  expect_gte(y.has_log_neg, 0);
 
   result <- Transformation.applyDefault2D(x, y, TRUE);
 
@@ -131,14 +131,14 @@ context("Transformation.applyDefault2D")
 
   expect_gt(x.has_identity, 0);
   expect_gt(x.has_norm, 0);
-  expect_gt(x.has_norm_neg, 0);
+  expect_gte(x.has_norm_neg, 0);
   expect_gt(x.has_log, 0);
-  expect_gt(x.has_log_neg, 0);
+  expect_gte(x.has_log_neg, 0);
   expect_gt(y.has_identity, 0);
   expect_gt(y.has_norm, 0);
-  expect_gt(y.has_norm_neg, 0);
+  expect_gte(y.has_norm_neg, 0);
   expect_gt(y.has_log, 0);
-  expect_gt(y.has_log_neg, 0);
+  expect_gte(y.has_log_neg, 0);
 }
 
 test_that("Test Transformation.applyDefault2D", {
