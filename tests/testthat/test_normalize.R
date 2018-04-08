@@ -128,3 +128,11 @@ test_that("Test Transformation.normalize (IV)", {
   expect_identical(result@transformation@backward(result@data), data);
   expect_identical(result@data, c(1, 3/4, 2/4, 1/4, 0));
 })
+
+
+test_that("Test Transformation.normalize with normal distributed data", {
+  data <- rnorm(10);
+  result <- Transformation.normalize(data);
+  expect_s4_class(result, "TransformedData")
+  validObject(result);
+})

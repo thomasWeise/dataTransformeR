@@ -116,23 +116,23 @@ Transformation.apply <- function(data, transformation, normalize=TRUE, negateNor
       # check if the normalization works in both directions, just to be sure
       normalized.min <- normalization@forward(transformed.min);
       if(!(is.finite(normalized.min) &&
-           all.equal(normalized.min, 0) )) {
+           isTRUE(all.equal(normalized.min, 0) ))) {
         return(NULL);
       }
       normalized.min.back <- normalization@backward(normalized.min);
       if(!(is.finite(normalized.min.back) &&
-           all.equal(normalized.min.back, transformed.min))) {
+           isTRUE(all.equal(normalized.min.back, transformed.min)))) {
         return(NULL);
       }
 
       normalized.max <- normalization@forward(transformed.max);
       if(!(is.finite(normalized.max) &&
-           all.equal(normalized.max, 1) )) {
+           isTRUE(all.equal(normalized.max, 1)))) {
         return(NULL);
       }
       normalized.max.back <- normalization@backward(normalized.max);
       if(!(is.finite(normalized.max.back) &&
-           all.equal(normalized.max.back, transformed.max))) {
+           isTRUE(all.equal(normalized.max.back, transformed.max)))) {
         return(NULL);
       }
 

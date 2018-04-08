@@ -23,8 +23,8 @@ Transformation.applyAll2D <- function(x, y, x.transformations, y.transformations
   if(is.null(x.result)) { return(NULL); }
 
   y.result <- Transformation.applyAll(data=y,
-                                                       transformations=y.transformations,
-                                                       addIdentity=y.addIdentity);
+                                      transformations=y.transformations,
+                                      addIdentity=y.addIdentity);
   if(is.null(y.result)) { return(NULL); }
 
   result <- unlist(lapply(X=x.result, FUN=function(data.x) {
