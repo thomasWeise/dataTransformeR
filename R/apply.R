@@ -25,6 +25,7 @@
 #' @return the corresponding \code{\link{TransformedData}} instance
 #' @export Transformation.apply
 #' @importFrom methods is validObject
+#' @importFrom utilizeR ignoreErrors
 #' @examples
 #' trafo <- Transformation.new(function(x) x*x, sqrt)
 #' data <- c(1, 2, 3, 4)
@@ -137,12 +138,12 @@ Transformation.apply <- function(data, transformation, normalize=TRUE, negateNor
       }
 
       # we now normalize the data into the range [0, 1]
-      tryCatch({
+      ignoreErrors({
         transformed.data <- vapply(X=transformed.data,
                                          FUN=function(x) {
                                            min(1, max(0, normalization@forward(x)))
                                          }, FUN.VALUE=NaN);
-      }, error=function(e) { return(NULL); }, warning=function(e) { return(NULL); } );
+      });
       if(!(all(is.finite(transformed.data)))) {
         return(NULL);
       }
