@@ -1,7 +1,7 @@
 Package: dataTransformeR
 Type: Package
 Title: R Package for Normalizing and Transforming Numerical Data
-Version: 0.8.10
+Version: 0.8.11
 Author: Dr. Thomas Weise <tweise@hfuu.edu.cn>
 Maintainer: Dr. Thomas Weise <tweise@hfuu.edu.cn>
 Description: This is package for creating functional transformations and
@@ -17,8 +17,8 @@ BugReports: http://www.github.com/thomasWeise/dataTransformeR/issues
 LazyData: true
 Depends: R (>= 3.3.0)
 Imports: methods (>= 3.3.2),
-         functionComposeR (>= 0.8.8),
-         utilizeR (>= 0.8.0)
+         functionComposeR (>= 0.8.10),
+         utilizeR (>= 0.8.4)
 Suggests: testthat (>= 2.0.0),
           roxygen2 (>= 6.0.1)
 Remotes: github::thomasWeise/functionComposeR,
