@@ -16,6 +16,7 @@
 #' @export Transformation.andThen2
 #' @importFrom functionComposeR function.compose
 #' @importFrom methods validObject
+#' @importFrom utilizeR function.args
 Transformation.andThen2 <- function(before, after.forward, after.backward, after.complexity = 1L) {
   # Check the after.forward function
   after.forward <- force(after.forward);
@@ -23,13 +24,7 @@ Transformation.andThen2 <- function(before, after.forward, after.backward, after
      (!(is.function(after.forward)))) {
     stop("after.forward function must be defined.");
   }
-  if(is.primitive(after.forward)) {
-    forward.args <- formals(args(after.forward));
-  } else {
-    forward.args <- formals(after.forward);
-  }
-  if((length(forward.args) != 1L) ||
-     (!(identical(names(forward.args), c("x"))))) {
+  if(!(identical(function.args(after.forward), c("x")))) {
     stop("after.forward function must have at exactly argument named 'x'.");
   }
 
@@ -39,13 +34,7 @@ Transformation.andThen2 <- function(before, after.forward, after.backward, after
      (!(is.function(after.backward)))) {
     stop("after.backward function must be defined.");
   }
-  if(is.primitive(after.backward)) {
-    forward.args <- formals(args(after.backward));
-  } else {
-    forward.args <- formals(after.backward);
-  }
-  if((length(forward.args) != 1L) ||
-     (!(identical(names(forward.args), c("x"))))) {
+  if(!(identical(function.args(after.backward), c("x")))) {
     stop("after.backward function must have at exactly argument named 'x'.");
   }
 

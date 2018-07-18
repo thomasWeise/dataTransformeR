@@ -26,6 +26,7 @@
 #'                  the identity transformation has complexity 0
 #' @exportClass Transformation
 #' @importFrom methods setClass representation prototype
+#' @importFrom utilizeR function.args
 #' @examples
 #' new("Transformation", forward=sin, backward=asin, complexity=1L)
 #' # An object of class "Transformation"
@@ -49,13 +50,7 @@ Transformation <- setClass(
        (!(is.function(object@forward)))) {
       return("Forward function must be defined.");
     }
-    if(is.primitive(object@forward)) {
-      forward.args <- formals(args(object@forward));
-    } else {
-      forward.args <- formals(object@forward);
-    }
-    if((length(forward.args) != 1L) ||
-       (!(identical(names(forward.args), c("x"))))) {
+    if(!(identical(function.args(object@forward), c("x")))) {
       return("Forward function must have at exactly one argument named 'x'.");
     }
 
@@ -64,18 +59,12 @@ Transformation <- setClass(
        (!(is.function(object@backward)))) {
       return("Backward function must be defined.");
     }
-    if(is.primitive(object@backward)) {
-      backward.args <- formals(args(object@backward));
-    } else {
-      backward.args <- formals(object@backward);
-    }
-    if((length(backward.args) != 1L) ||
-       (!(identical(names(backward.args), c("x"))))) {
+    if(!(identical(function.args(object@backward), c("x")))) {
       return("Backward function must have at exactly one argument named 'x'.");
     }
 
     if(xor(identical(object@forward, identity),
-                 identical(object@backward, identity))) {
+           identical(object@backward, identity))) {
       stop("Either neither or both transformation functions can be the identity transformation.")
     }
 
